@@ -223,12 +223,10 @@ Response
 商户需要为创建订单提供一个接口给淘在路上平台调用，虽然只需要一个接口，但是流程上却可以分为两个不同的流程： 付款前推送下单和付款后推送下单。
 
 **付款前下单** 
-
-![](http://10.1.25.61:9990/images/api/createOrder.png)
+![](http://github.com/HelloJesse/TravoAPI2.0/raw/master/images/createOrder.png)
 
 **付款后下单** 
-
-![](http://10.1.25.61:9990/images/api/createOrderafterpay.png)
+![](http://github.com/HelloJesse/TravoAPI2.0/raw/master/images/createOrderafterpay.png)
 
 - 接口提供方： 商户 
 - 接口调用发起方：淘在路上
