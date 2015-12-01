@@ -264,7 +264,7 @@ Response
 ![](https://github.com/HelloJesse/TravoAPI2.0/raw/master/images/createOrder.png)
 
 **付款后下单**
-![](https://github.com/HelloJesse/TravoAPI2.0/raw/master/images/createOrderafterpay.png)
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/createOrderAfterPay.png)
 
 - 接口提供方： 商户
 - 接口调用发起方：淘在路上
