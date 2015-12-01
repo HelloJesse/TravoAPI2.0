@@ -832,7 +832,7 @@ Response
 </table>
 
 
-###错误代码
+####错误代码
 <table>
    <tbody>
 	 <tr>
@@ -2943,30 +2943,30 @@ Response
 通过 操作套餐(OperateProductItem)接口即可以完成对商品套餐的新增和更新操作。
 
 
-![](http://10.1.25.61:9990/images/api/operateProductItem.png)
-
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/operateProductItem.png)
 
 ####商品列表实体信息####
 
 获取商品列表接口(GetProductList) 返回的信息
 
-![](http://10.1.25.61:9990/images/api/GetProductList.png)
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/GetProductList.png)
 
 
 ####库存、价格、班期实体信息####
 下面的信息可以用于新增和更新商品库存、价格，以及班期信息。 对于库存以及价格信息只能获取或者更新。而班期信息可以新增，更新以及获取。
 
-![](http://10.1.25.61:9990/images/api/ProductSaleScheduleDTO.png)
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/ProductSaleScheduleDTO.png)
+
 
 ####查看行程段参数实体信息####
 获取行程段信息(GetProductSegmentList)返回的数据会比新增/更新的时候信息丰富一些。
 
-![](http://10.1.25.61:9990/images/api/getProductSegment.png)
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/getProductSegment.png)
 
 ####操作行程段参数实体信息####
 下面的实体信息可以用于新增和更新商品行程段信息,可以通过接口操作商品行程段(OperateProductSegment)来完成
 
-![](http://10.1.25.61:9990/images/api/operateProductSegment.png)
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/operateProductSegment.png)
 
 
 ###7.2 获取商品列表###
