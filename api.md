@@ -62,7 +62,7 @@
 
 前3个参数是为了完成验证和授权，商户开发人员在开始对接之前需要找淘在路上开发人员提供AppId 和 PrivateKey，有时候这两个值在正式环境与测试环境可能不同。关于Sign的获取方式可以参数附件提供的代码。
 
-RequestData是每个不同接口请求参数的Json格式，下面我们拿商户取消订单这个接口来举个例子：
+RequestData是每个不同接口请求参数的Json字符串格式(注意它本身不是一个JSON对象，而是一个JSON对象的字符串)，下面我们拿商户取消订单这个接口来举个例子：
 
 测试环境请求地址：http://180.168.78.10:9900/order/order.svc/CancelAppOrder
 
@@ -562,7 +562,7 @@ Response
    </tr>
    <tr>
       <td>PassengerList</td>
-      <td>List<PassengerDTO></td>
+      <td>List< PassengerDTO ></td>
       <td>订单旅客信息列表</td>
       <td>N</td>
       <td></td>
@@ -576,7 +576,23 @@ Response
    </tr>
 </table>
 
-####ContactDTO####
+###错误代码
+<table>
+   <tbody>
+	 <tr>
+      <th>Code</th>
+      <th>Message</th>
+			<th>Desc</th>
+   </tr>
+   <tr>
+      <td>5000</td>
+      <td>商品信息有误，不支持在线销售!</td>
+			<td>该商品由于信息，包括基本信息，库存，班期等信息有误，导致该商品已不能够在线够，需要将该商品下线并重新由业务人员做相应处理的。</td>
+   </tr>
+	</tbody>
+</table>
+
+####ContactDTO
 
 <table class="gridtable">
    <tr>
@@ -609,7 +625,7 @@ Response
    </tr>
 </table>
 
-####PassengerDTO####
+####PassengerDTO
 
 <table class="gridtable">
    <tr>
@@ -705,7 +721,7 @@ Response
    </tr>
 </table>
 
-####OrderExpandDTO####
+####OrderExpandDTO
 
 <table class="gridtable">
    <tr>
@@ -759,7 +775,7 @@ Response
    </tr>
 </table>
 
-####ResponseOrderDTO####
+####ResponseOrderDTO
 
 <table class="gridtable">
    <tr>
@@ -799,7 +815,7 @@ Response
    </tr>
 </table>
 
-####OrderInfoDTO####
+####OrderInfoDTO
 <table class="gridtable">
    <tr>
       <th>属性名称</th>
@@ -1827,7 +1843,7 @@ Response
    </tr>
    <tr>
       <td>PassengerList</td>
-      <td>List<PassengerDTO></td>
+      <td>List< PassengerDTO ></td>
       <td>订单旅客信息列表</td>
       <td>N</td>
       <td>可以为空</td>
@@ -4334,7 +4350,7 @@ OperateProductItem是一个通用服务，既可以用来新增套餐又可以�
    </tr>
    <tr>
       <td>ItemList</td>
-      <td>List<ProductItemBasicDTO></td>
+      <td>List< ProductItemBasicDTO ></td>
       <td>套餐信息</td>
       <td>Y</td>
       <td>套餐基本信息</td>
