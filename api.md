@@ -576,22 +576,6 @@ Response
    </tr>
 </table>
 
-###错误代码
-<table>
-   <tbody>
-	 <tr>
-      <th>Code</th>
-      <th>Message</th>
-			<th>Desc</th>
-   </tr>
-   <tr>
-      <td>5000</td>
-      <td>商品信息有误，不支持在线销售!</td>
-			<td>该商品由于信息，包括基本信息，库存，班期等信息有误，导致该商品已不能够在线够，需要将该商品下线并重新由业务人员做相应处理的。</td>
-   </tr>
-	</tbody>
-</table>
-
 ####ContactDTO
 
 <table class="gridtable">
@@ -847,6 +831,22 @@ Response
    </tr>
 </table>
 
+
+###错误代码
+<table>
+   <tbody>
+	 <tr>
+      <th>Code</th>
+      <th>Message</th>
+			<th>Desc</th>
+   </tr>
+   <tr>
+      <td>5000</td>
+      <td>商品信息有误，不支持在线销售!</td>
+			<td>该商品由于信息，包括基本信息，库存，班期等信息有误，导致该商品已不能够在线够，需要将该商品下线并重新由业务人员做相应处理的。</td>
+   </tr>
+	</tbody>
+</table>
 
 ###6.2 付款/取消申请###
 
