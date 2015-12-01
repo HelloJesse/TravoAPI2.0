@@ -6,18 +6,22 @@
 
 在开始开发以前建议认真阅读常见QA!
 
+##目录 
+1. [系统级请求格式](#一系统级请求格式)
+2. 	
+
 ##一、系统级请求格式
 ###1.1 服务请求地址 
 
 
 订单服务地址
 
-- 测试环境http://101.223.162:9900/order/order.svc
+- 测试环境http://180.168.78.10/order/order.svc
 - 正式环境http://api.117lego.com/order/order.svc
 
 商品服务地址:
 
-- 测试环境 http://101.231.223.162:9900/product/product.svc 
+- 测试环境 http://180.168.78.10:9900/product/product.svc 
 - 正式环境 http://api.117lego.com/product/product.svc 
 
 ###1.2 请求格式 
@@ -32,7 +36,7 @@
 
 RequestData是每个不同接口请求参数的Json格式，下面我们拿商户取消订单这个接口来举个例子：
 
-测试环境请求地址：http://101.231.223.162:9900/order/order.svc/CancelAppOrder
+测试环境请求地址：http://180.168.78.10:9900/order/order.svc/CancelAppOrder
 
 Reqeust
 <pre>
@@ -229,10 +233,10 @@ Response
 商户需要为创建订单提供一个接口给淘在路上平台调用，虽然只需要一个接口，但是流程上却可以分为两个不同的流程： 付款前推送下单和付款后推送下单。
 
 **付款前下单** 
-![](http://github.com/HelloJesse/TravoAPI2.0/raw/master/images/createOrder.png)
+![](https://github.com/HelloJesse/TravoAPI2.0/raw/master/images/createOrder.png)
 
 **付款后下单** 
-![](http://github.com/HelloJesse/TravoAPI2.0/raw/master/images/createOrderafterpay.png)
+![](https://github.com/HelloJesse/TravoAPI2.0/raw/master/images/createOrderafterpay.png)
 
 - 接口提供方： 商户 
 - 接口调用发起方：淘在路上
@@ -258,8 +262,7 @@ Response
 - 10: 取消申请
 - 7: 已取消
 
-![](http://10.1.25.61:9990/images/api/orderstatuschange.png)
-
+![](https://github.com/HelloJesse/TravoAPI2.0/raw/master/images/orderstatuschange.png)
 - 接口提供方： 商户 
 - 接口调用发起方：淘在路上
 - 接口名称： 付款/申请取消（商户自定义名称，需要提供接口地址给淘在路上)
@@ -267,7 +270,7 @@ Response
 ###5.3 订单确认取消
 用户在淘在路上APP取消订单订单之后，订单的状态变为：10(取消申请)，商户可以调用淘在路上接口CancelAppOrder 来完成**取消订单**的操作，在调用这个接口的时候，可以决定具体的退款金额，下面是用户取消订单的整个流程。
 
-![](http://10.1.25.61:9990/images/api/cancelorder.png)
+![](https://github.com/HelloJesse/TravoAPI2.0/raw/master/images/cancelorder.png)
 
 这个流程里面会涉及到2个接口：
 
@@ -286,7 +289,7 @@ Response
 ###5.4 订单核销
 订单核销分为预约和使用，但都是调用同一个接口。
 
-![](http://10.1.25.61:9990/images/api/updateAppOrder.png)
+![](https://github.com/HelloJesse/TravoAPI2.0/raw/master/images/updateAppOrder.png)
 
 - 接口提供方： 淘在路上
 - 接口调用发起方：商户
@@ -296,7 +299,7 @@ Response
 ###5.5 订单使用
 在3.4 的订单核销接口中，订单需要先预约之后才能使用，而这个订单使用的接口则不需要预约即可以将订单的状态设置为已使用。
 
-![](http://10.1.25.61:9990/images/api/useOrder.png)
+![](https://github.com/HelloJesse/TravoAPI2.0/raw/master/images/useOrder.png)
 
 
 - 接口提供方： 淘在路上
