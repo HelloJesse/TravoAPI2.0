@@ -4472,6 +4472,597 @@ OperateProductItem是一个通用服务，既可以用来新增套餐又可以�
 
 ![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/productInforequestDTO.png)
 
+下面是必填实体之间的的关系
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/ProductBasicInfomraitonRequiredModels.png)
+
+####ProductInfoRequestDTO
+<table>
+   <tr>
+      <td>实体定义</td>
+      <td>ProductInfoRequestDTO</td>
+      <td></td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>ProductId</td>
+      <td>int</td>
+      <td>商品ID</td>
+      <td>Y</td>
+      <td>新增时为0，修改时填入指定的ProductId</td>
+   </tr>
+   <tr>
+      <td>ProductBasicInfo</td>
+      <td>ProductBasicInfoDTO</td>
+      <td>商户商品基本信息</td>
+      <td>Y</td>
+      <td>商品基本信息，必填不为空</td>
+   </tr>
+   <tr>
+      <td>ProductHotel</td>
+      <td>ProductHotelDetailDTO</td>
+      <td>酒店、娱乐、交通通用信息</td>
+      <td>N</td>
+      <td>酒店、娱乐、交通必须填写</td>
+   </tr>
+   <tr>
+      <td>ProductTicket</td>
+      <td>ProductTicketDTO</td>
+      <td>门票商品信息</td>
+      <td>N</td>
+      <td>门票类商品必须填写</td>
+   </tr>
+   <tr>
+      <td>FeeDescInfo</td>
+      <td>ProductFeeDTO</td>
+      <td>费用说明实体</td>
+      <td>Y</td>
+      <td>费用说明</td>
+   </tr>
+   <tr>
+      <td>ReservationNotice</td>
+      <td>List< ProductDescInfoDTO ></td>
+      <td>预订须知列表</td>
+      <td>Y</td>
+      <td>预订须知模块（含：如何使用、预订须知、退改规定）</td>
+   </tr>
+   <tr>
+      <td>PreSellSchedule</td>
+      <td>List< ProductPreSellScheduleDTO ></td>
+      <td>预售班期实体</td>
+      <td>N</td>
+      <td>非直售类商品，请组装（套餐不得超过10个）</td>
+   </tr>
+   <tr>
+      <td>SellSchedule</td>
+      <td>List< ProductItemBasicDTO ></td>
+      <td>直售套餐列表</td>
+      <td>N</td>
+      <td>直售套餐列表</td>
+   </tr>
+   <tr>
+      <td>ProductSegment</td>
+      <td>ProductSegmentRequestDTO</td>
+      <td>行程段信息</td>
+      <td>N</td>
+      <td>行程段信息，线路类商品必填</td>
+   </tr>
+   <tr>
+      <td>ReservationControl</td>
+      <td>ProductReservationControlDTO</td>
+      <td>预订控制实体</td>
+      <td>Y</td>
+      <td>预定控制信息必填</td>
+   </tr>
+</table>
+
+####ProductBasicInfoDTO (商品基本信息)
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>GroupId</td>
+      <td>string</td>
+      <td>商户Id</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ProductTypeId</td>
+      <td>int</td>
+      <td>商品类型Id</td>
+      <td>Y</td>
+      <td>11:团队游,12:自由行,13:当地游,14:线路,16:机+酒,19:景点门票,20:酒店套餐,21:美食,22:交通接驳,23:出行必备,24:休闲娱乐,25:一日游,27:内容,30:点到点,31:签证,32:WIFI,33:其他服务,34:保险,36:体验,40:购物,41:交通卡,42:手机卡</td>
+   </tr>
+   <tr>
+      <td>ProductAttributeId</td>
+      <td>int</td>
+      <td>商品形态Id</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsShuttleProduct</td>
+      <td>bool</td>
+      <td>必填属性</td>
+      <td>Y</td>
+      <td>必须置为true </td>
+   </tr>
+   <tr>
+      <td>GroupProductId</td>
+      <td>string</td>
+      <td>商户商品Id</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ProductName</td>
+      <td>string</td>
+      <td>商品名称</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>DestCityId</td>
+      <td>int</td>
+      <td>所在城市Id</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>DestCityName</td>
+      <td>string</td>
+      <td>所在城市名称</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>LngCode</td>
+      <td>double</td>
+      <td>经度</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>LatCode</td>
+      <td>double</td>
+      <td>纬度</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Recommendation</td>
+      <td>string</td>
+      <td>特色推荐</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Recommendation1</td>
+      <td>string</td>
+      <td>特色推荐1</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Recommendation2</td>
+      <td>string</td>
+      <td>特色推荐2</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ProductImage</td>
+      <td>List< ProductImageDTO ></td>
+      <td>"商品图片,图片上不能有文字，仅支持jpg，png格式，
+      横构图像素大于1080*575，且文件小于10M，商品图
+      片最多上传5张。"</td>
+      <td>N</td>
+      <td>"商品类型为1,2,3,4,5,7,8,9时必填</td>
+   </tr>
+   <tr>
+      <td>ProductDescription</td>
+      <td>List<ProductDescriptionDTO></td>
+      <td>商品描述</td>
+      <td>N</td>
+      <td>"商品类型为5,7,8必填</td>
+   </tr>
+   <tr>
+      <td>ProductTag</td>
+      <td>List<ProductCustomTagDTO></td>
+      <td>商品分类</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>CornerMarkName</td>
+      <td>string</td>
+      <td>商品角标</td>
+      <td>N</td>
+      <td>（限量、新品、人气、爆款、中秋、国庆、10.28大促）</td>
+   </tr>
+   <tr>
+      <td>SaleMode</td>
+      <td>int</td>
+      <td>售卖模式</td>
+      <td>Y</td>
+      <td>1:直售（指定班期）,2:预售（线下预约）,3:预售（在线预约）</td>
+   </tr>
+   <tr>
+      <td>PresaleStartTime</td>
+      <td>DateTime?</td>
+      <td>预售开始日期</td>
+      <td>N</td>
+      <td>非直售 必填</td>
+   </tr>
+   <tr>
+      <td>PresaleEndTime</td>
+      <td>DateTime?</td>
+      <td>预售结束日期</td>
+      <td>N</td>
+      <td>非直售 必填</td>
+   </tr>
+   <tr>
+      <td>PMId</td>
+      <td>string</td>
+      <td>维护人员</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Duration</td>
+      <td>float</td>
+      <td>游玩时常</td>
+      <td>N</td>
+      <td>"商品类型为1,2,3,4,5,6时必填</td>
+   </tr>
+   <tr>
+      <td>StartCityId</td>
+      <td>int</td>
+      <td>出发城市Id</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>StartCityName</td>
+      <td>string</td>
+      <td>出发城市名称</td>
+      <td>N</td>
+      <td>"商品类型为1,2,3,4,7,9时必填</td>
+   </tr>
+   <tr>
+      <td>ServiceTime</td>
+      <td>string</td>
+      <td>服务时段</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>DayCount</td>
+      <td>int</td>
+      <td>天数</td>
+      <td>N</td>
+      <td>"商品类型为1,2,3,4时必填</td>
+   </tr>
+   <tr>
+      <td>NightCount</td>
+      <td>int</td>
+      <td>夜数</td>
+      <td>N</td>
+      <td>"商品类型为1,2,3,4时必填</td>
+   </tr>
+   <tr>
+      <td>CharacterTitle</td>
+      <td>string</td>
+      <td>副标题</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+</table>
+
+####ProductImageDTO
+
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>ImageUrl</td>
+      <td>string</td>
+      <td>图片地址</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>FrontCover</td>
+      <td>int</td>
+      <td>是否为封面</td>
+      <td>Y</td>
+      <td>1为封面，0为普通商品图片</td>
+   </tr>
+   <tr>
+      <td>Sequence</td>
+      <td>int</td>
+      <td>排序</td>
+      <td>Y</td>
+      <td>越往前，数字越小</td>
+   </tr>
+</table>
+
+####ProductDescriptionDTO(商品描述列表)
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>Title</td>
+      <td>string</td>
+      <td>图片标题</td>
+      <td>Y</td>
+      <td>描述标题、图片不能出现一个为空一个不为空的情况</td>
+   </tr>
+   <tr>
+      <td>Image</td>
+      <td>string</td>
+      <td>图片</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Description</td>
+      <td>string</td>
+      <td>描述内容</td>
+      <td>Y</td>
+      <td>（描述标题+图片）与描述内容不能同时为空</td>
+   </tr>
+   <tr>
+      <td>Sequence</td>
+      <td>int</td>
+      <td>排序</td>
+      <td>Y</td>
+      <td>越往前，数字越小</td>
+   </tr>
+</table>
+
+####ProductCustomTagDTO
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>TagName</td>
+      <td>string</td>
+      <td>分类名称</td>
+      <td>Y</td>
+      <td>"机酒套餐、景点门票、观光游览、酒店套餐、</td>
+   </tr>
+   <tr>
+      <td>饕餮美食、休闲娱乐、交通接驳、出行必备"</td>
+   </tr>
+   <tr>
+      <td>Sequence</td>
+      <td>int</td>
+      <td>排序</td>
+      <td>Y</td>
+      <td>越往前，数字越小</td>
+   </tr>
+</table>
+
+####ProductFeeDTO
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>ExcludeFee</td>
+      <td>ProductDescInfoDTO</td>
+      <td>费用不包含</td>
+      <td>N</td>
+      <td>线路类必填，非线路类不填</td>
+   </tr>
+   <tr>
+      <td>IncludeFees</td>
+      <td>List< ProductDescInfoDTO > </td>
+      <td>费用包含</td>
+      <td>N</td>
+      <td>线路类选填，非线路类不填</td>
+   </tr>
+   <tr>
+      <td>ProductFee</td>
+      <td>ProductDescInfoDTO</td>
+      <td>费用说明</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ProductDescInfoDTO（费用说明、预订须知实体）[酒店客栈、景点门票、交通接驳、休闲娱乐]
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>DescValue</td>
+      <td>string</td>
+      <td>描述内容</td>
+      <td>Y</td>
+      <td>限定800字</td>
+   </tr>
+   <tr>
+      <td>DescType</td>
+      <td>int</td>
+      <td>内容类型</td>
+      <td>Y</td>
+      <td> 
+<pre>
+ 1、费用说明
+ 2、如何使用
+ 3、预订须知
+ 4、退改规定
+ 5、服务时间（对外）,
+ 6、儿童标准（最小年龄） 
+ 7、儿童标准（最大年龄）
+ 8、儿童标准（年龄标准是否占床说明）
+ 9、儿童标准（最小身高）
+ 10、儿童标准（最大身高）
+ 11、儿童标准（身高标准是否占床说明）
+ 12、儿童标准（其他）
+ 13、儿童标准（年龄标准是否占床） 此时DescValue为（占床、不占床  ）之一
+ 14、儿童标准（身高标准是否占床） 此时DescValue为（占床、不占床 ） 之一
+ 15、交通（方式）  此时DescValue为（往返、去程、回程、全程） 之一 
+ 16、交通（税费）  此时DescValue为（含税费、不含税费）  
+ 17、交通（接送机地址）
+ 18、交通（接送机） 此时DescValue为（接送机、接机、送机）之一
+ 19、交通（景点间或景区内用车）
+ 20、交通（其他）
+ 21、住宿（默认）
+ 22、住宿（其他）
+ 23、住宿（其他数量）
+ 24、用餐（默认）
+ 25、门票（默认）
+ 26、导服（当地中文导游） 
+ 27、导服（当地英文导游）
+ 28、导服（全陪和当地中文导游）
+ 29、其他（默认）
+ 30、费用不包含
+ 2、如何使用
+ 3、预订须知
+ 4、退改规定
+ 5、服务时间（对外）,
+ 6、儿童标准（最小年龄） 
+ 7、儿童标准（最大年龄）
+ 8、儿童标准（年龄标准是否占床说明）
+ 9、儿童标准（最小身高）
+ 10、儿童标准（最大身高）
+ 11、儿童标准（身高标准是否占床说明）
+ 12、儿童标准（其他）
+ 13、儿童标准（年龄标准是否占床） 此时DescValue为（占床、不占床  ）之一
+ 14、儿童标准（身高标准是否占床） 此时DescValue为（占床、不占床 ） 之一
+ 15、交通（方式）  此时DescValue为（往返、去程、回程、全程） 之一 
+ 16、交通（税费）  此时DescValue为（含税费、不含税费）  
+ 17、交通（接送机地址）
+ 18、交通（接送机） 此时DescValue为（接送机、接机、送机）之一
+ 19、交通（景点间或景区内用车）
+ 20、交通（其他）
+ 21、住宿（默认）
+ 22、住宿（其他）
+ 23、住宿（其他数量）
+ 24、用餐（默认）
+ 25、门票（默认）
+ 26、导服（当地中文导游） 
+ 27、导服（当地英文导游）
+ 28、导服（全陪和当地中文导游）
+ 29、其他（默认）
+ 30、费用不包含</pre>
+</td>
+	</tr>
+</table>
+
+####ProductReservationContactDTO（预订联系人实体）
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>OrderContact</td>
+      <td>string</td>
+      <td>预订联系人（对外）</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>OrderPhone</td>
+      <td>string</td>
+      <td>电话（对外）</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>OrderServiceTime</td>
+      <td>string</td>
+      <td>服务时间（对外）</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>UrgentContact</td>
+      <td>string</td>
+      <td>紧急联系人（对内）</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>UrgentPhone</td>
+      <td>string</td>
+      <td>电话（对内）</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>OrderNoticeType</td>
+      <td>int</td>
+      <td>待处理提醒</td>
+      <td>N</td>
+      <td>0:无，1:短信提醒，2:邮箱提醒，3:短信提醒&邮箱提醒</td>
+   </tr>
+   <tr>
+      <td>NotifyMobile</td>
+      <td>string</td>
+      <td>短信提醒号码</td>
+      <td>N</td>
+      <td>短信提醒时必填</td>
+   </tr>
+   <tr>
+      <td>PhoneCode</td>
+      <td>string</td>
+      <td>号码编码</td>
+      <td>N</td>
+      <td>(中国为："+86")</td>
+   </tr>
+   <tr>
+      <td>NotifyMailbox</td>
+      <td>string</td>
+      <td>邮箱提醒</td>
+      <td>N</td>
+      <td>邮箱提醒时必填</td>
+   </tr>
+</table>
 
 ##八、系统级别错误代码##
 
@@ -4521,6 +5112,557 @@ OperateProductItem是一个通用服务，既可以用来新增套餐又可以�
       <td>商户号前后不统一</td>
    </tr>
 </table>
+
+以上信息是一个商品所包括的最基本的必填信息，除外根据商品的类型会有不同的信息实体，比如门票（ProductTicketDTO) 酒店（ProductHotelDTO)等。根据商品的售卖类型：直售和预售也会有不同的信息实体是必须要提供的。
+
+####门票类型商品必填商品信息 ProductTicket
+**ProductTicketDTO**
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>Grade</td>
+      <td>string</td>
+      <td>级别</td>
+      <td>Y</td>
+      <td>1A,2A,3A,4A,5A</td>
+   </tr>
+   <tr>
+      <td>ServiceTime</td>
+      <td>string</td>
+      <td>服务时段</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Address</td>
+      <td>sting</td>
+      <td>详细地址</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ContactPhone</td>
+      <td>string</td>
+      <td>联系电话</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+
+####酒店、娱乐、交通类商品必填商品信息、ProductHotel
+
+**ProductHotelDTO**
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>Address</td>
+      <td>string</td>
+      <td>详细地址</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ContactPhone</td>
+      <td>string</td>
+      <td>联系电话</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>WebsiteUrl</td>
+      <td>string</td>
+      <td>官网链接</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ServiceTime</td>
+      <td>string</td>
+      <td>服务时间段</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>HotelName</td>
+      <td>string</td>
+      <td>酒店、营业场所名称</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>HotelType</td>
+      <td>int</td>
+      <td>酒店类型</td>
+      <td>Y</td>
+      <td>1:豪华型、2:度假村、4:民俗客栈、8:精品主题</td>
+   </tr>
+</table>
+
+
+####预售班期实体 PreSellSchedule
+**ProductPreSellScheduleDTO**
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>ItemId</td>
+      <td>int</td>
+      <td>套餐ID</td>
+      <td>Y</td>
+      <td>新增时为0，修改时填入指定的ItemId(第一次新增时会自动创建一个默认套餐,只需标注IsDefault为1即可关联此默认套餐)</td>
+   </tr>
+   <tr>
+      <td>ItemName</td>
+      <td>string</td>
+      <td>套餐名称</td>
+      <td>Y</td>
+      <td>不得超过18个汉字</td>
+   </tr>
+   <tr>
+      <td>AppItemId</td>
+      <td>string</td>
+      <td>关联商户套餐ID</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>UseStartTime</td>
+      <td>datetime</td>
+      <td>可使用日期开始日期</td>
+      <td>Y</td>
+      <td>开始日期不得早于预售开始日期</td>
+   </tr>
+   <tr>
+      <td>UseEndTime</td>
+      <td>datetime</td>
+      <td>可使用日期结束日期</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Price</td>
+      <td>List< ProductPriceDTO ></td>
+      <td>价种实体</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Inventory</td>
+      <td>ProductInventoryDTO</td>
+      <td>库存实体</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ScheduleSaleDate</td>
+      <td>datetime</td>
+      <td>预约开始日期</td>
+      <td>N</td>
+      <td>在线预售商品必填</td>
+   </tr>
+   <tr>
+      <td>ScheduleSaleEndDate</td>
+      <td>datetime</td>
+      <td>预约结束日期</td>
+      <td>N</td>
+      <td>在线预售商品必填</td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>有效性</td>
+      <td>Y</td>
+      <td>1:有效，0:无效</td>
+   </tr>
+   <tr>
+      <td>IsDefault</td>
+      <td>int</td>
+      <td>是否默认套餐</td>
+      <td>Y</td>
+      <td>每个产品只有一个默认套餐。</td>
+   </tr>
+   <tr>
+      <td>IsCalculateMinPrice</td>
+      <td>int</td>
+      <td>是否计入商品起价 null，计入(默认)； 0，不计入; 1,计入</td>
+      <td></td>
+      <td></td>
+   </tr>
+</table>
+
+**ProductPriceDTO（预售价种实体）**
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>PriceModeId</td>
+      <td>int</td>
+      <td>价种</td>
+      <td>Y</td>
+      <td>4：单价</td>
+   </tr>
+   <tr>
+      <td>OriginalPrice</td>
+      <td>decimal</td>
+      <td>原价</td>
+      <td>Y</td>
+      <td>卖价不得高于原价</td>
+   </tr>
+   <tr>
+      <td>SalesPrice</td>
+      <td>decimal</td>
+      <td>卖价</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>价种有效性</td>
+      <td>Y</td>
+      <td>0：无效、1：有效</td>
+   </tr>
+</table>
+
+**InventoryDTO（预售库存实体）**
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>Total</td>
+      <td>string</td>
+      <td>总库存</td>
+      <td>N</td>
+      <td>可为空</td>
+   </tr>
+   <tr>
+      <td>InventoryMode</td>
+      <td>int</td>
+      <td>库存模式</td>
+      <td>Y</td>
+      <td>不为空（2：无限库存；4：库存可超；4：库存可超）</td>
+   </tr>
+   <tr>
+      <td>Used</td>
+      <td>int</td>
+      <td>使用库存</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>InventoryType</td>
+      <td>int</td>
+      <td>库存类型</td>
+      <td>N</td>
+      <td>0：总库存、1：剩余库存</td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>班期有效性</td>
+      <td>N</td>
+      <td>可为空（0：关闭，1：打开）</td>
+   </tr>
+</table>
+
+####直售套餐列表 SellSchedule
+
+**ProductItemBasicDTO（套餐基本信息实体）**
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>ItemId</td>
+      <td>int</td>
+      <td>套餐Id</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ItemName</td>
+      <td>string</td>
+      <td>套餐名称</td>
+      <td>Y</td>
+      <td>套餐名称</td>
+   </tr>
+   <tr>
+      <td>AppItemId</td>
+      <td>string</td>
+      <td>商户关联套餐Id</td>
+      <td>Y</td>
+      <td>商户关联套餐Id</td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>状态</td>
+      <td>N</td>
+      <td>套餐有效性（1：是，0：否）</td>
+   </tr>
+   <tr>
+      <td>IsDefault</td>
+      <td>bool</td>
+      <td>是否默认套餐</td>
+      <td>N</td>
+      <td>是否默认套餐（1：是，0：否）</td>
+   </tr>
+   <tr>
+      <td>IsCalculateMinPrice</td>
+      <td>int?</td>
+      <td>是否计入商品起价</td>
+      <td>N</td>
+      <td> null，计入(默认)； 0，不计入; 1,计入</td>
+   </tr>
+</table>
+
+####行程段信息 ReservationControl
+**ProductSegmentRequestDTO**
+
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>GoBy</td>
+      <td>string</td>
+      <td>去程</td>
+      <td>Y</td>
+      <td>飞机、火车、汽车、轮船、自行安排</td>
+   </tr>
+   <tr>
+      <td>BackBy</td>
+      <td>string</td>
+      <td>返程</td>
+      <td>Y</td>
+      <td>飞机、火车、汽车、轮船、自行安排</td>
+   </tr>
+   <tr>
+      <td>ProductSegment</td>
+      <td>List< SegmentDTO > </td>
+      <td>线路行程列表</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>DepartCarMode</td>
+      <td>int</td>
+      <td>发车模式</td>
+      <td>Y</td>
+      <td>0：指定地点集合，1:上门接送</td>
+   </tr>
+   <tr>
+      <td>DepartCarInfo</td>
+      <td>List< ProductDepartCarInfoDTO ></td>
+      <td>发车信息列表</td>
+      <td>N</td>
+      <td>DepartCarMode为0时请组装</td>
+   </tr>
+</table>
+
+**SegmentDTO**
+
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>SegmentId</td>
+      <td>int</td>
+      <td>行程段ID</td>
+      <td>Y</td>
+      <td>新增为0</td>
+   </tr>
+   <tr>
+      <td>StartTime</td>
+      <td>datetime</td>
+      <td>开始时间</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>SegmentTitle</td>
+      <td>string</td>
+      <td>行程段名称</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>DayNo</td>
+      <td>int</td>
+      <td>行程天数</td>
+      <td>N</td>
+      <td>多日游为必填项</td>
+   </tr>
+   <tr>
+      <td>MealDesc</td>
+      <td>string</td>
+      <td>用餐描述</td>
+      <td>N</td>
+      <td>多日游为必填项</td>
+   </tr>
+   <tr>
+      <td>HotelDesc</td>
+      <td>string</td>
+      <td>住宿描述</td>
+      <td>N</td>
+      <td>多日游为必填项</td>
+   </tr>
+   <tr>
+      <td>Description</td>
+      <td>List< ProductDescriptionDTO ></td>
+      <td>行程描述</td>
+      <td>Y</td>
+      <td>描述实体列表</td>
+   </tr>
+   <tr>
+      <td>TourSpot</td>
+      <td>List<TourSpotDTO> </td>
+      <td>景点描述</td>
+      <td>N</td>
+      <td>景点描述实体列表</td>
+   </tr>
+   <tr>
+      <td>SegmentType</td>
+      <td>int</td>
+      <td>线路行程类型</td>
+      <td>Y</td>
+      <td>0：多日游，1：1日游</td>
+   </tr>
+   <tr>
+      <td>Sequence</td>
+      <td>int</td>
+      <td>排序</td>
+      <td>Y</td>
+      <td>越往前，数字越小</td>
+   </tr>
+</table>
+
+**TourSpotDTO(景点实体）**
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>SegmentId</td>
+      <td>int</td>
+      <td>行程段ID</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>TourSpotId</td>
+      <td>int</td>
+      <td>景点Id</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>TourSpotName</td>
+      <td>string</td>
+      <td>景点名称</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Description</td>
+      <td>string</td>
+      <td>景点描述</td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>LngCode</td>
+      <td>double</td>
+      <td>经度数值</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>LatCode</td>
+      <td>double</td>
+      <td>纬度数值</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsFromGIS</td>
+      <td>bool</td>
+      <td>是否GIS来源</td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>GisId</td>
+      <td>string</td>
+      <td>GisId</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+**ProductDepartCarInfoDTO(发车信息实体）**
+<table>
+   <tr>
+      <td>属性名称</td>
+      <td>属性类型</td>
+      <td>属性描述</td>
+      <td>是否必填</td>
+      <td>属性备注</td>
+   </tr>
+   <tr>
+      <td>DepartCarId</td>
+      <td>int</td>
+      <td>行程段ID</td>
+      <td>Y</td>
+      <td>填写行程段ID SegmentId</td>
+   </tr>
+</table>
+
 
 ##九、常见QA##
 
