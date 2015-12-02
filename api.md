@@ -32,13 +32,14 @@
 - [　　6.9 设置商户订单标记](#69-设置商户订单标记)
 - [　　6.10 设置商户订单商户券](#610-设置商户订单商户券)
 - [七、商品相关api接口详情](#七商品相关api接口详情)
-- [　　7.1 商品相关实体信息概览](#71商品相关实体信息概览)
-- [　　7.2 获取商品列表](#72-获取商品列表)
-- [　　7.3 获取商品库存班期价格](#73-获取商品库存班期价格)
-- [　　7.4 获取商品库存价格班期](#74-获取商品库存价格班期)
-- [　　7.5 更新商品库存价格班期](#75-更新商品库存价格班期)
-- [　　7.6 关闭打开班期](#76-关闭打开班期)
-- [　　7.7 操作套餐](#77-操作套餐)
+- [　　7.1 操作商品基本信息](#71操作商品基本信息)
+- [　　7.2 商品相关实体信息概览](#72商品相关实体信息概览)
+- [　　7.3 获取商品列表](#73-获取商品列表)
+- [　　7.4 获取商品库存班期价格](#74-获取商品库存班期价格)
+- [　　7.5 获取商品库存价格班期](#75-获取商品库存价格班期)
+- [　　7.6 更新商品库存价格班期](#76-更新商品库存价格班期)
+- [　　7.7 关闭打开班期](#77-关闭打开班期)
+- [　　7.8 操作套餐](#78-操作套餐)
 - [八、系统级别错误代码](#八系统级别错误代码)
 - [九、常见QA](#九常见qa)
 
@@ -2935,1527 +2936,16 @@ Response
 ###7.1商品相关实体信息概览###
 与订单相比，商品没有复杂的流程。对于商品来说，比较重要的是各个实体之间的关系，与商品相关的接口分为以下5类
 
+- 基本信息
 - 商品套餐
 - 商品列表
-- 基本信息
 - 库存、价格、班期
 - 商品行程段
 
+如果商户通过接口往淘在路上平台提交商品数据，需要先提交商品基本信息。参见接口![7.8操作商品基本信息](#78操作商品基本信息), 通过该接口可以创建新的商品，获取商品Id之后，可以在它的基础之上添加套餐、行程段以及库存，价格，班期等等数据。
 
-####商品套餐实体信息####
 
-更新商品套餐的实体信息
-通过 操作套餐(OperateProductItem)接口即可以完成对商品套餐的新增和更新操作。
-
-
-![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/operateProductItem.png)
-
-####商品列表实体信息####
-
-获取商品列表接口(GetProductList) 返回的信息
-
-![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/GetProductList.png)
-
-
-####库存、价格、班期实体信息####
-下面的信息可以用于新增和更新商品库存、价格，以及班期信息。 对于库存以及价格信息只能获取或者更新。而班期信息可以新增，更新以及获取。
-
-![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/ProductSaleScheduleDTO.png)
-
-
-####查看行程段参数实体信息####
-获取行程段信息(GetProductSegmentList)返回的数据会比新增/更新的时候信息丰富一些。
-
-![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/getProductSegment.png)
-
-####操作行程段参数实体信息####
-下面的实体信息可以用于新增和更新商品行程段信息,可以通过接口操作商品行程段(OperateProductSegment)来完成
-
-![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/operateProductSegment.png)
-
-
-###7.2 获取商品列表###
-
-####请求消息####
-<table class="gridtable">
-   <tr>
-      <th>RequestData</th>
-      <td>GetProductListRequestDTO</td>
-   </tr>
-   <tr>
-      <th>Response</th>
-      <td>ResponseGetProductListDTO</td>
-   </tr>
-</table>
-
-####GetProductListRequestDTO####
-
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>Guid</td>
-      <td>string</td>
-      <td>唯一标识</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>IsSuccess</td>
-      <td>bool</td>
-      <td>是否成功</td>
-      <td>Y</td>
-      <td>不为空；提示调用返回是否成功</td>
-   </tr>
-   <tr>
-      <td>Code</td>
-      <td>int</td>
-      <td>编码</td>
-      <td>Y</td>
-      <td>不为空；返回的调用结果编码</td>
-   </tr>
-   <tr>
-      <td>Message</td>
-      <td>string</td>
-      <td>提示信息</td>
-      <td>Y</td>
-      <td>不为空；返回的调用结果信息</td>
-   </tr>
-   <tr>
-      <td>ProductList</td>
-      <td>List< ProductInfoResponseDTO ></td>
-      <td>ProductInfoResponseDTO对象实例列表</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ProductInfoResponseDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>AuditState</td>
-      <td>int</td>
-      <td>审核状态</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ProductId</td>
-      <td>int</td>
-      <td>商品ID</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>GroupProductId</td>
-      <td>string</td>
-      <td>商户产品名</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ProductName</td>
-      <td>string</td>
-      <td>产品名称</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ItemList</td>
-      <td>List< ProductItemBasicDTO ></td>
-      <td>ProductItemBasicDTO对象实例列表</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-####ProductItemBasicDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ItemId</td>
-      <td>int</td>
-      <td>套餐ID</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ItemName</td>
-      <td>string</td>
-      <td>套餐名称</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>AppItemId</td>
-      <td>string</td>
-      <td>关联商户套餐ID</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>State</td>
-      <td>int</td>
-      <td>套餐有效性（1：是，0：否）</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>IsDefault</td>
-      <td>bool</td>
-      <td>是否默认套餐</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>IsCalculateMinPrice</td>
-      <td>int</td>
-      <td>是否计入商品起价 null:计入(默认) ,0:不计入, 1:计入</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-###7.3 获取商品库存、班期、价格 ###
-
-####API方法####
-
-- 获取库存 GetProductInventory
-- 获取班期 GetProductScheduleList
-- 获取价格 GetProductPrice
-
-- 测试地址：http://180.168.78.10:9900/order/product.svc/API方法
-- 正式地址：http://api.117lego.com/order/product.svc/API方法
-- 调用方式: POST
-
-
-####请求消息####
-<table class="gridtable">
-   <tr>
-      <th>RequestData</th>
-      <td>GetSaleScheduleRequestDTO</td>
-   </tr>
-   <tr>
-      <th>Response</th>
-      <td>ResponseGetSaleScheduleDTO</td>
-   </tr>
-</table>
-
-
-####GetSaleScheduleRequestDTO####
-
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>GroupId</td>
-      <td>string</td>
-      <td>商户ID</td>
-      <td>Y</td>
-      <td>商户ID，必填</td>
-   </tr>
-   <tr>
-      <td>ProductId</td>
-      <td>int</td>
-      <td>商品Id</td>
-      <td>Y</td>
-      <td>商品ID，必填</td>
-   </tr>
-   <tr>
-      <td>OperateType</td>
-      <td>string</td>
-      <td>操作类型</td>
-      <td>Y</td>
-      <td>Schedule:班期；Price：价格；Inventory：库存</td>
-   </tr>
-   <tr>
-      <td>ItemId</td>
-      <td>int</td>
-      <td>套餐ID</td>
-      <td>Y</td>
-      <td>必填</td>
-   </tr>
-   <tr>
-      <td>ScheduleDates</td>
-      <td>List< DateTime ></td>
-      <td>日期列表</td>
-      <td>N</td>
-      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
-   </tr>
-   <tr>
-      <td>StartDate</td>
-      <td>DateTime?</td>
-      <td>起始日期</td>
-      <td>N</td>
-      <td>查询日期范围开始（与ScheduleDates互斥）</td>
-   </tr>
-   <tr>
-      <td>EndDate</td>
-      <td>DateTime?</td>
-      <td>截止日期</td>
-      <td>N</td>
-      <td>查询日期范围结束（与ScheduleDates互斥）</td>
-   </tr>
-</table>
-
-####ResponseGetSaleScheduleDTO####
-
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>Guid</td>
-      <td>string</td>
-      <td>唯一标识</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>SaleSchedule</td>
-      <td>ProductSaleScheduleDTO</td>
-      <td>商品班期信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>Code</td>
-      <td>int</td>
-      <td>编码</td>
-      <td>Y</td>
-      <td>不为空；返回的调用结果编码</td>
-   </tr>
-   <tr>
-      <td>IsSuccess</td>
-      <td>bool</td>
-      <td>是否成功</td>
-      <td>Y</td>
-      <td>不为空；提示调用返回是否成功</td>
-   </tr>
-   <tr>
-      <td>Message</td>
-      <td>string</td>
-      <td>提示信息</td>
-      <td>Y</td>
-      <td>不为空；返回的调用结果信息</td>
-   </tr>
-</table>
-
-####ProductSaleScheduleDTO####
-
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ProductId</td>
-      <td>int</td>
-      <td>商品Id</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ProductName</td>
-      <td>string</td>
-      <td>商品名称</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>GroupProductId</td>
-      <td>string</td>
-      <td>商户商品Id</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ItemSchedules</td>
-      <td>List< ItemSaleScheduleDTO ></td>
-      <td>套餐班期信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ItemSaleScheduleDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>Item</td>
-      <td>ProductItemBasicDTO</td>
-      <td>套餐信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>SaleSchedules</td>
-      <td>List< SaleScheduleDTO ></td>
-      <td>价格、库存</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ProductItemBasicDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ItemId</td>
-      <td>int</td>
-      <td>套餐ID</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ItemName</td>
-      <td>string</td>
-      <td>套餐名称</td>
-      <td></td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>AppItemId</td>
-      <td>string</td>
-      <td>关联商户套餐ID</td>
-      <td></td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>State</td>
-      <td>int</td>
-      <td>套餐有效性（1：是，0：否）</td>
-      <td></td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>IsDefault</td>
-      <td>bool</td>
-      <td>是否默认套餐（1：是，0：否）</td>
-      <td></td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>IsCalculateMinPrice</td>
-      <td>int?</td>
-      <td>是否是否计入商品起价 null，计入(默认)； 0，不计入; 1,计入</td>
-      <td></td>
-      <td></td>
-   </tr>
-</table>
-
-####SaleScheduleDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ScheduleDate</td>
-      <td>DateTime?</td>
-      <td>班期日期</td>
-      <td>Y</td>
-      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
-   </tr>
-   <tr>
-      <td>ScheduleStartDate</td>
-      <td>DateTime?</td>
-      <td>班期起始日期（与ScheduleDate互斥）</td>
-      <td>N</td>
-      <td>查询日期范围开始（与ScheduleDates互斥）</td>
-   </tr>
-   <tr>
-      <td>ScheduleEndDate</td>
-      <td>DateTime?</td>
-      <td>班期结束日期（与ScheduleDate互斥）</td>
-      <td>N</td>
-      <td>查询日期范围结束（与ScheduleDates互斥）</td>
-   </tr>
-   <tr>
-      <td>State</td>
-      <td>int</td>
-      <td>0：无效、1：有效</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>Prices</td>
-      <td>List< ProductPriceDTO ></td>
-      <td>价格信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>Inventory</td>
-      <td>ProductInventoryDTO</td>
-      <td>库存信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ProductPriceDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>PriceModeId</td>
-      <td>int</td>
-      <td>价种</td>
-      <td>Y</td>
-      <td>1:成人价， 2：儿童价，3：单房差，4：单价</td>
-   </tr>
-   <tr>
-      <td>OriginalPrice</td>
-      <td>int</td>
-      <td>原价</td>
-      <td>Y</td>
-      <td>卖价不得高于原价</td>
-   </tr>
-   <tr>
-      <td>SalesPrice</td>
-      <td>int</td>
-      <td>卖价</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>State</td>
-      <td>int</td>
-      <td>价种有效性</td>
-      <td>Y</td>
-      <td>0：无效、1：有效</td>
-   </tr>
-</table>
-
-####ProductInventoryDTO
-
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>Total</td>
-      <td>int</td>
-      <td>总库存</td>
-      <td>N</td>
-      <td>可为空</td>
-   </tr>
-   <tr>
-      <td>Used</td>
-      <td>int</td>
-      <td>使用库存</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>InventoryMode</td>
-      <td>int</td>
-      <td>库存模式</td>
-      <td>Y</td>
-      <td>不为空（2：无限库存；4：库存不可超；）</td>
-   </tr>
-   <tr>
-      <td>InventoryType</td>
-      <td>int</td>
-      <td>库存类型</td>
-      <td>N</td>
-      <td>0：总库存、1：剩余库存</td>
-   </tr>
-</table>
-
-###7.4 获取商品库存、价格、班期
-
-- 更新库存 GetProductInventory
-- 更新班期 GetProductSchedule
-- 更新价格 GetProductPrice
-
-- 测试地址：http://180.168.78.10:9900/order/product.svc/API方法
-- 正式地址：http://api.117lego.com/order/product.svc/API方法
-- 调用方式: POST
-
-
-####请求消息####
-<table class="gridtable">
-   <tr>
-      <th>RequestData</th>
-      <td>GetSaleScheduleRequestDTO</td>
-   </tr>
-   <tr>
-      <th>Response</th>
-      <td>ResponseGetSaleScheduleDTO</td>
-   </tr>
-</table>
-
-
-####GetSaleScheduleRequestDTO
-
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>GroupId</td>
-      <td>string</td>
-      <td>商户ID</td>
-      <td>Y</td>
-      <td>商户ID，必填</td>
-   </tr>
-   <tr>
-      <td>ProductId</td>
-      <td>int</td>
-      <td>商品Id</td>
-      <td>Y</td>
-      <td>商品ID，必填</td>
-   </tr>
-   <tr>
-      <td>OperateType</td>
-      <td>string</td>
-      <td>操作类型</td>
-      <td>Y</td>
-      <td> CloseSchedule：关闭班期；OpenSchedule：打开班期)</td>
-   </tr>
-   <tr>
-      <td>ItemId</td>
-      <td>int</td>
-      <td>套餐ID</td>
-      <td>Y</td>
-      <td>必填</td>
-   </tr>
-   <tr>
-      <td>ScheduleDates</td>
-      <td>List< DateTime ></td>
-      <td>日期列表</td>
-      <td>N</td>
-      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
-   </tr>
-   <tr>
-      <td>StartDate</td>
-      <td>DateTime?</td>
-      <td>起始日期</td>
-      <td>N</td>
-      <td>查询日期范围开始（与ScheduleDates互斥）</td>
-   </tr>
-   <tr>
-      <td>EndDate</td>
-      <td>DateTime?</td>
-      <td>截止日期</td>
-      <td>N</td>
-      <td>查询日期范围结束（与ScheduleDates互斥）</td>
-   </tr>
-</table>
-
-
-####ResponseGetSaleScheduleDTO
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>Guid</td>
-      <td>string</td>
-      <td>唯一标识</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>SaleSchedule</td>
-      <td>ProductSaleScheduleDTO</td>
-      <td>商品班期信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>Code</td>
-      <td>int</td>
-      <td>编码</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
- <tr>
-      <td>IsSuccess</td>
-      <td>bool</td>
-      <td>是否成功</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
- <tr>
-      <td>Message</td>
-      <td>string</td>
-      <td>提示信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-
-####ProductSaleScheduleDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ProductId</td>
-      <td>int</td>
-      <td>商户Id</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ProductName</td>
-      <td>string</td>
-      <td>商品名称</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>GroupProductId</td>
-      <td>string</td>
-      <td>商户商品Id（商户商品名）</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ItemSchedules</td>
-      <td>List < ItemSaleScheduleDTO ></td>
-      <td>套餐班期信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ItemSaleScheduleDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>Item</td>
-      <td>ProductItemBasicDTO</td>
-      <td>套餐信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>SaleSchedules</td>
-      <td>List< SaleScheduleDTO ></td>
-      <td>价格、库存</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ProductItemBasicDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ItemId</td>
-      <td>int</td>
-      <td>套餐ID</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ItemName</td>
-      <td>string</td>
-      <td>套餐名称</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>AppItemId</td>
-      <td>string</td>
-      <td>关联商户套餐ID</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>State</td>
-      <td>int</td>
-      <td>套餐有效性（1：是，0：否）</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>IsDefault</td>
-      <td>bool</td>
-      <td>是否默认套餐（1：是，0：否）</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>IsCalculateMinPrice</td>
-      <td>int?</td>
-      <td>是否是否计入商品起价 null，计入(默认)； 0，不计入; 1,计入</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-</table>
-
-####SaleScheduleDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ScheduleDate</td>
-      <td>DateTime?</td>
-      <td>班期日期</td>
-      <td>Y</td>
-      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
-   </tr>
-   <tr>
-      <td>ScheduleStartDate</td>
-      <td>DateTime?</td>
-      <td>班期起始日期（与ScheduleDate互斥）</td>
-      <td>N</td>
-      <td>查询日期范围开始（与ScheduleDates互斥）</td>
-   </tr>
-   <tr>
-      <td>ScheduleEndDate</td>
-      <td>DateTime?</td>
-      <td>班期结束日期（与ScheduleDate互斥）</td>
-      <td>N</td>
-      <td>查询日期范围结束（与ScheduleDates互斥）</td>
-   </tr>
-   <tr>
-      <td>State</td>
-      <td>int</td>
-      <td>0：无效、1：有效</td>
-      <td></td>
-      <td>可为空或忽略该字段</td>
-   </tr>
-   <tr>
-      <td>Prices</td>
-      <td>List< ProductPriceDTO ></td>
-      <td>价格信息</td>
-      <td></td>
-      <td>更新班期和价格的时候必需,更新库存的时候可忽略该字段</td>
-   </tr>
-   <tr>
-      <td>Inventory</td>
-      <td>ProductInventoryDTO</td>
-      <td>库存信息</td>
-      <td></td>
-      <td>更新班期和库存的时候必需,更新价格的时候可忽略该字段</td>
-   </tr>
-</table>
-
-####ProductPriceDTO####
-更新班期和价格时此实体信息必需
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>PriceModeId</td>
-      <td>int</td>
-      <td>价种</td>
-      <td>Y</td>
-      <td>1:成人价， 2：儿童价，3：单房差，4：单价</td>
-   </tr>
-   <tr>
-      <td>OriginalPrice</td>
-      <td>int</td>
-      <td>原价</td>
-      <td>Y</td>
-      <td>卖价不得高于原价</td>
-   </tr>
-   <tr>
-      <td>SalesPrice</td>
-      <td>int</td>
-      <td>卖价</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ProductInventoryDTO####
-更新班期和库存时此实体必填
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>Total</td>
-      <td>int</td>
-      <td>总库存</td>
-      <td>N</td>
-      <td>可为空</td>
-   </tr>
-   <tr>
-      <td>Used</td>
-      <td>int</td>
-      <td>使用库存</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>InventoryMode</td>
-      <td>int</td>
-      <td>库存模式</td>
-      <td>Y</td>
-      <td>不为空（2：无限库存；4：库存不可超；）</td>
-   </tr>
-   <tr>
-      <td>InventoryType</td>
-      <td>int</td>
-      <td>库存类型</td>
-      <td>N</td>
-      <td>0：总库存、1：剩余库存</td>
-   </tr>
-</table>
-
-
-###7.5 更新商品库存、价格、班期
-
-####API方法
-- 更新库存 UpdateProductInventory
-- 更新班期 UpdateProductSchedule
-- 更新价格 UpdateProductPrice
-
-- 测试地址：http://180.168.78.10:9900/order/product.svc/API方法
-- 正式地址：http://api.117lego.com/order/product.svc/API方法
-- 调用方式: POST
-
-####请求消息####
-<table class="gridtable">
-   <tr>
-      <th>RequestData</th>
-      <td>OperateSaleScheduleRequestDTO</td>
-   </tr>
-   <tr>
-      <th>Response</th>
-      <td>ResponseOperateProductSaleScheduleDTO</td>
-   </tr>
-</table>
-
-####OperateSaleScheduleRequestDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>GroupId</td>
-      <td>string</td>
-      <td>商户ID</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>OperateType</td>
-      <td>string</td>
-      <td>操作类型</td>
-      <td>Y</td>
-      <td>操作类型(Schedule:班期；Price：价格；Inventory：库存)</td>
-   </tr>
-   <tr>
-      <td>SaleSchedule</td>
-      <td>ProductSaleScheduleDTO</td>
-      <td>商品班期信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ProductSaleScheduleDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ProductId</td>
-      <td>int</td>
-      <td>商户Id</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ProductName</td>
-      <td>string</td>
-      <td>商品名称</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>GroupProductId</td>
-      <td>string</td>
-      <td>商户商品Id（商户商品名）</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ItemSchedules</td>
-      <td>List < ItemSaleScheduleDTO ></td>
-      <td>套餐班期信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ItemSaleScheduleDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>Item</td>
-      <td>ProductItemBasicDTO</td>
-      <td>套餐信息</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>SaleSchedules</td>
-      <td>List< SaleScheduleDTO ></td>
-      <td>价格、库存</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ProductItemBasicDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ItemId</td>
-      <td>int</td>
-      <td>套餐ID</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>ItemName</td>
-      <td>string</td>
-      <td>套餐名称</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>AppItemId</td>
-      <td>string</td>
-      <td>关联商户套餐ID</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>State</td>
-      <td>int</td>
-      <td>套餐有效性（1：是，0：否）</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>IsDefault</td>
-      <td>bool</td>
-      <td>是否默认套餐（1：是，0：否）</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>IsCalculateMinPrice</td>
-      <td>int?</td>
-      <td>是否是否计入商品起价 null，计入(默认)； 0，不计入; 1,计入</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-</table>
-
-####SaleScheduleDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ScheduleDate</td>
-      <td>DateTime?</td>
-      <td>班期日期</td>
-      <td>Y</td>
-      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
-   </tr>
-   <tr>
-      <td>ScheduleStartDate</td>
-      <td>DateTime?</td>
-      <td>班期起始日期（与ScheduleDate互斥）</td>
-      <td>N</td>
-      <td>查询日期范围开始（与ScheduleDates互斥）</td>
-   </tr>
-   <tr>
-      <td>ScheduleEndDate</td>
-      <td>DateTime?</td>
-      <td>班期结束日期（与ScheduleDate互斥）</td>
-      <td>N</td>
-      <td>查询日期范围结束（与ScheduleDates互斥）</td>
-   </tr>
-   <tr>
-      <td>State</td>
-      <td>int</td>
-      <td>0：无效、1：有效</td>
-      <td></td>
-      <td>可为空或忽略该字段</td>
-   </tr>
-   <tr>
-      <td>Prices</td>
-      <td>List< ProductPriceDTO ></td>
-      <td>价格信息</td>
-      <td></td>
-      <td>更新班期和价格的时候必需,更新库存的时候可忽略该字段</td>
-   </tr>
-   <tr>
-      <td>Inventory</td>
-      <td>ProductInventoryDTO</td>
-      <td>库存信息</td>
-      <td></td>
-      <td>更新班期和库存的时候必需,更新价格的时候可忽略该字段</td>
-   </tr>
-</table>
-
-####ProductPriceDTO####
-更新班期和价格时此实体信息必需
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>PriceModeId</td>
-      <td>int</td>
-      <td>价种</td>
-      <td>Y</td>
-      <td>1:成人价， 2：儿童价，3：单房差，4：单价</td>
-   </tr>
-   <tr>
-      <td>OriginalPrice</td>
-      <td>int</td>
-      <td>原价</td>
-      <td>Y</td>
-      <td>卖价不得高于原价</td>
-   </tr>
-   <tr>
-      <td>SalesPrice</td>
-      <td>int</td>
-      <td>卖价</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-####ProductInventoryDTO####
-更新班期和库存时此实体必填
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>Total</td>
-      <td>int</td>
-      <td>总库存</td>
-      <td>N</td>
-      <td>可为空</td>
-   </tr>
-   <tr>
-      <td>Used</td>
-      <td>int</td>
-      <td>使用库存</td>
-      <td>N</td>
-      <td></td>
-   </tr>
-   <tr>
-      <td>InventoryMode</td>
-      <td>int</td>
-      <td>库存模式</td>
-      <td>Y</td>
-      <td>不为空（2：无限库存；4：库存不可超；）</td>
-   </tr>
-   <tr>
-      <td>InventoryType</td>
-      <td>int</td>
-      <td>库存类型</td>
-      <td>N</td>
-      <td>0：总库存、1：剩余库存</td>
-   </tr>
-</table>
-
-####ResponseOperateProductSaleScheduleDTO####
-
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>IsSuccess</td>
-      <td>bool</td>
-      <td>是否成功</td>
-      <td>Y</td>
-      <td>不为空；提示调用返回是否成功</td>
-   </tr>
-   <tr>
-      <td>Code</td>
-      <td>int</td>
-      <td>编码</td>
-      <td>Y</td>
-      <td>发生错误时，不为空；返回的调用结果编码</td>
-   </tr>
-   <tr>
-      <td>Message</td>
-      <td>string</td>
-      <td>提示信息</td>
-      <td>Y</td>
-      <td>发生错误时，不为空；返回的调用结果信息</td>
-   </tr>
-   <tr>
-      <td>Guid</td>
-      <td>string</td>
-      <td>唯一标识</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-###7.6 关闭/打开班期###
-
-- 测试地址：http://180.168.78.10:9900/order/product.svc/OperateScheduleDate
-- 正式地址：http://api.117lego.com/order/product.svc/OperateScheduleDate
-- 调用方式: POST
-
-####请求消息####
-<table class="gridtable">
-   <tr>
-      <th>RequestData</th>
-      <td>GetSaleScheduleRequestDTO</td>
-   </tr>
-   <tr>
-      <th>Response</th>
-      <td>ResponseProductDTO</td>
-   </tr>
-</table>
-
-####GetSaleScheduleRequestDTO####
-
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>GroupId</td>
-      <td>string</td>
-      <td>商户ID</td>
-      <td>Y</td>
-      <td>商户ID，必填</td>
-   </tr>
-   <tr>
-      <td>ProductId</td>
-      <td>int</td>
-      <td>商品Id</td>
-      <td>Y</td>
-      <td>商品ID，必填</td>
-   </tr>
-   <tr>
-      <td>OperateType</td>
-      <td>string</td>
-      <td>操作类型</td>
-      <td>Y</td>
-      <td> CloseSchedule：关闭班期；OpenSchedule：打开班期)</td>
-   </tr>
-   <tr>
-      <td>ItemId</td>
-      <td>int</td>
-      <td>套餐ID</td>
-      <td>Y</td>
-      <td>必填</td>
-   </tr>
-   <tr>
-      <td>ScheduleDates</td>
-      <td>List< DateTime ></td>
-      <td>日期列表</td>
-      <td>N</td>
-      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
-   </tr>
-   <tr>
-      <td>StartDate</td>
-      <td>DateTime?</td>
-      <td>起始日期</td>
-      <td>N</td>
-      <td>查询日期范围开始（与ScheduleDates互斥）</td>
-   </tr>
-   <tr>
-      <td>EndDate</td>
-      <td>DateTime?</td>
-      <td>截止日期</td>
-      <td>N</td>
-      <td>查询日期范围结束（与ScheduleDates互斥）</td>
-   </tr>
-</table>
-
-###7.7 操作套餐
-OperateProductItem是一个通用服务，既可以用来新增套餐又可以用来修改套餐。新增时ProductItemBasicDTO的ItemId(套餐Id)为空即可。同时针对新增还可以调用AddProductItem, 修改可以调用UpdateProductItem, 该三个服务的参数是一样的。
-
-- 测试地址：http://180.168.78.10:9900/product/product.svc/OperateProductItem
-- 正式地址：http://api.117lego.com/product/product.svc/OperateProductItem
-- 调用方式: POST
-
-####请求消息####
-<table class="gridtable">
-   <tr>
-      <th>RequestData</th>
-      <td>ProductItemRequestDTO</td>
-   </tr>
-   <tr>
-      <th>Response</th>
-      <td>ResponseProductDT</td>
-   </tr>
-</table>
-
-####ProductItemRequestDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>GroupId</td>
-      <td>string</td>
-      <td>商户ID</td>
-      <td>Y</td>
-      <td>商户ID，必填</td>
-   </tr>
-   <tr>
-      <td>ProductId</td>
-      <td>int</td>
-      <td>商品Id</td>
-      <td>Y</td>
-      <td>商品ID，必填</td>
-   </tr>
-   <tr>
-      <td>ItemList</td>
-      <td>List< ProductItemBasicDTO ></td>
-      <td>套餐信息</td>
-      <td>Y</td>
-      <td>套餐基本信息</td>
-   </tr>
-</table>
-
-####ProductItemBasicDTO####
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>ItemId</td>
-      <td>int</td>
-      <td>套餐Id</td>
-      <td>N</td>
-      <td>新增的时候为空，修改的时候必填</td>
-   </tr>
-   <tr>
-      <td>ItemName</td>
-      <td>string</td>
-      <td>套餐名称</td>
-      <td>Y</td>
-      <td>套餐名称</td>
-   </tr>
-   <tr>
-      <td>AppItemId</td>
-      <td>string</td>
-      <td>商户关联套餐Id</td>
-      <td>Y</td>
-      <td>商户关联套餐Id</td>
-   </tr>
-   <tr>
-      <td>State</td>
-      <td>int</td>
-      <td>状态</td>
-      <td>N</td>
-      <td>套餐有效性（1：是，0：否）</td>
-   </tr>
-   <tr>
-      <td>IsDefault</td>
-      <td>bool</td>
-      <td>是否默认套餐</td>
-      <td>N</td>
-      <td>是否默认套餐（1：是，0：否）</td>
-   </tr>
-   <tr>
-      <td>IsCalculateMinPrice</td>
-      <td>int?</td>
-      <td>是否计入商品起价</td>
-      <td>N</td>
-      <td> null，计入(默认)； 0，不计入; 1,计入</td>
-   </tr>
-</table>
-
-####ResponseProductDTO####
-
-<table class="gridtable">
-   <tr>
-      <th>属性名称</th>
-      <th>属性类型</th>
-      <th>属性描述</th>
-      <th>是否必填</th>
-      <th>属性备注</th>
-   </tr>
-   <tr>
-      <td>IsSuccess</td>
-      <td>bool</td>
-      <td>是否成功</td>
-      <td>Y</td>
-      <td>不为空；提示调用返回是否成功</td>
-   </tr>
-   <tr>
-      <td>Code</td>
-      <td>int</td>
-      <td>编码</td>
-      <td>Y</td>
-      <td>不为空；返回的调用结果编码</td>
-   </tr>
-   <tr>
-      <td>Message</td>
-      <td>string</td>
-      <td>提示信息</td>
-      <td>Y</td>
-      <td>不为空；返回的调用结果信息</td>
-   </tr>
-   <tr>
-      <td>Guid</td>
-      <td>string</td>
-      <td>唯一标识</td>
-      <td>Y</td>
-      <td></td>
-   </tr>
-</table>
-
-###7.8操作商品基本信息
+###7.2操作商品基本信息
 操作基本信息接口涉及到的信息比较多，实体比较大。这个接口同时操作了不同品类的商品，而不同品类的商品在淘在路上所需要的信息有很大的差异，所以我们先看看那些必填的信息。
 
 ####请求消息####
@@ -4471,6 +2961,12 @@ OperateProductItem是一个通用服务，既可以用来新增套餐又可以�
 </table>
 
 ![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/productInforequestDTO.png)
+
+红色标注的为所有类型商品都必填的一些基本属性，针对不同的商品类型比如门票类，酒店类会衍生出ProductTicket和ProductHotel不同的属性，如果商户提交的商品属于这些类型那就需要提交这些信息，否则可以忽略。
+
+针对属于行程段类的商品可以提交行程段的信息ProductSegment 
+
+针对商品的售卖类型，比如直售和预售也会有不同的属性, 分别是PreSellSchedule和SellSchedule。
 
 下面是必填实体之间的的关系
 ![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/ProductBasicInfomraitonRequiredModels.png)
@@ -5064,54 +3560,6 @@ OperateProductItem是一个通用服务，既可以用来新增套餐又可以�
    </tr>
 </table>
 
-##八、系统级别错误代码##
-
-<table class="gridtable">
-   <tr>
-      <th>Code</th>
-      <th>Message</th>
-   </tr>
-   <tr>
-      <td>-1</td>
-      <td>系统意外错误</td>
-   </tr>
-   <tr>
-      <td>-2</td>
-      <td>AppId不能为空</td>
-   </tr>
-   <tr>
-      <td>-3</td>
-      <td>AppId必须是数字</td>
-   </tr>
-   <tr>
-      <td>-4</td>
-      <td>该请求已过时</td>
-   </tr>
-   <tr>
-      <td>-5</td>
-      <td>商户配置错误</td>
-   </tr>
-   <tr>
-      <td>-6</td>
-      <td>签名错误</td>
-   </tr>
-   <tr>
-      <td>-7</td>
-      <td>已经被列入黑名单</td>
-   </tr>
-   <tr>
-      <td>-8</td>
-      <td>输入参数为空</td>
-   </tr>
- <tr>
-      <td>-14</td>
-      <td>当前商户没有使用当前模块权限</td>
-   </tr>
- <tr>
-      <td>-110</td>
-      <td>商户号前后不统一</td>
-   </tr>
-</table>
 
 以上信息是一个商品所包括的最基本的必填信息，除外根据商品的类型会有不同的信息实体，比如门票（ProductTicketDTO) 酒店（ProductHotelDTO)等。根据商品的售卖类型：直售和预售也会有不同的信息实体是必须要提供的。
 
@@ -5662,6 +4110,1570 @@ OperateProductItem是一个通用服务，既可以用来新增套餐又可以�
       <td>填写行程段ID SegmentId</td>
    </tr>
 </table>
+
+####商品套餐实体信息####
+
+更新商品套餐的实体信息
+通过 操作套餐(OperateProductItem)接口即可以完成对商品套餐的新增和更新操作。
+
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/operateProductItem.png)
+
+####商品列表实体信息####
+
+获取商品列表接口(GetProductList) 返回的信息
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/GetProductList.png)
+
+
+####库存、价格、班期实体信息####
+下面的信息可以用于新增和更新商品库存、价格，以及班期信息。 对于库存以及价格信息只能获取或者更新。而班期信息可以新增，更新以及获取。
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/ProductSaleScheduleDTO.png)
+
+
+####查看行程段参数实体信息####
+获取行程段信息(GetProductSegmentList)返回的数据会比新增/更新的时候信息丰富一些。
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/getProductSegment.png)
+
+####操作行程段参数实体信息####
+下面的实体信息可以用于新增和更新商品行程段信息,可以通过接口操作商品行程段(OperateProductSegment)来完成
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/operateProductSegment.png)
+
+
+###7.3 获取商品列表###
+
+####请求消息####
+<table class="gridtable">
+   <tr>
+      <th>RequestData</th>
+      <td>GetProductListRequestDTO</td>
+   </tr>
+   <tr>
+      <th>Response</th>
+      <td>ResponseGetProductListDTO</td>
+   </tr>
+</table>
+
+####GetProductListRequestDTO####
+
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>Guid</td>
+      <td>string</td>
+      <td>唯一标识</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsSuccess</td>
+      <td>bool</td>
+      <td>是否成功</td>
+      <td>Y</td>
+      <td>不为空；提示调用返回是否成功</td>
+   </tr>
+   <tr>
+      <td>Code</td>
+      <td>int</td>
+      <td>编码</td>
+      <td>Y</td>
+      <td>不为空；返回的调用结果编码</td>
+   </tr>
+   <tr>
+      <td>Message</td>
+      <td>string</td>
+      <td>提示信息</td>
+      <td>Y</td>
+      <td>不为空；返回的调用结果信息</td>
+   </tr>
+   <tr>
+      <td>ProductList</td>
+      <td>List< ProductInfoResponseDTO ></td>
+      <td>ProductInfoResponseDTO对象实例列表</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ProductInfoResponseDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>AuditState</td>
+      <td>int</td>
+      <td>审核状态</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ProductId</td>
+      <td>int</td>
+      <td>商品ID</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>GroupProductId</td>
+      <td>string</td>
+      <td>商户产品名</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ProductName</td>
+      <td>string</td>
+      <td>产品名称</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ItemList</td>
+      <td>List< ProductItemBasicDTO ></td>
+      <td>ProductItemBasicDTO对象实例列表</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+####ProductItemBasicDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ItemId</td>
+      <td>int</td>
+      <td>套餐ID</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ItemName</td>
+      <td>string</td>
+      <td>套餐名称</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>AppItemId</td>
+      <td>string</td>
+      <td>关联商户套餐ID</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>套餐有效性（1：是，0：否）</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsDefault</td>
+      <td>bool</td>
+      <td>是否默认套餐</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsCalculateMinPrice</td>
+      <td>int</td>
+      <td>是否计入商品起价 null:计入(默认) ,0:不计入, 1:计入</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+###7.4 获取商品库存、班期、价格 ###
+
+####API方法####
+
+- 获取库存 GetProductInventory
+- 获取班期 GetProductScheduleList
+- 获取价格 GetProductPrice
+
+- 测试地址：http://180.168.78.10:9900/order/product.svc/API方法
+- 正式地址：http://api.117lego.com/order/product.svc/API方法
+- 调用方式: POST
+
+
+####请求消息####
+<table class="gridtable">
+   <tr>
+      <th>RequestData</th>
+      <td>GetSaleScheduleRequestDTO</td>
+   </tr>
+   <tr>
+      <th>Response</th>
+      <td>ResponseGetSaleScheduleDTO</td>
+   </tr>
+</table>
+
+
+####GetSaleScheduleRequestDTO####
+
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>GroupId</td>
+      <td>string</td>
+      <td>商户ID</td>
+      <td>Y</td>
+      <td>商户ID，必填</td>
+   </tr>
+   <tr>
+      <td>ProductId</td>
+      <td>int</td>
+      <td>商品Id</td>
+      <td>Y</td>
+      <td>商品ID，必填</td>
+   </tr>
+   <tr>
+      <td>OperateType</td>
+      <td>string</td>
+      <td>操作类型</td>
+      <td>Y</td>
+      <td>Schedule:班期；Price：价格；Inventory：库存</td>
+   </tr>
+   <tr>
+      <td>ItemId</td>
+      <td>int</td>
+      <td>套餐ID</td>
+      <td>Y</td>
+      <td>必填</td>
+   </tr>
+   <tr>
+      <td>ScheduleDates</td>
+      <td>List< DateTime ></td>
+      <td>日期列表</td>
+      <td>N</td>
+      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
+   </tr>
+   <tr>
+      <td>StartDate</td>
+      <td>DateTime?</td>
+      <td>起始日期</td>
+      <td>N</td>
+      <td>查询日期范围开始（与ScheduleDates互斥）</td>
+   </tr>
+   <tr>
+      <td>EndDate</td>
+      <td>DateTime?</td>
+      <td>截止日期</td>
+      <td>N</td>
+      <td>查询日期范围结束（与ScheduleDates互斥）</td>
+   </tr>
+</table>
+
+####ResponseGetSaleScheduleDTO####
+
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>Guid</td>
+      <td>string</td>
+      <td>唯一标识</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>SaleSchedule</td>
+      <td>ProductSaleScheduleDTO</td>
+      <td>商品班期信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Code</td>
+      <td>int</td>
+      <td>编码</td>
+      <td>Y</td>
+      <td>不为空；返回的调用结果编码</td>
+   </tr>
+   <tr>
+      <td>IsSuccess</td>
+      <td>bool</td>
+      <td>是否成功</td>
+      <td>Y</td>
+      <td>不为空；提示调用返回是否成功</td>
+   </tr>
+   <tr>
+      <td>Message</td>
+      <td>string</td>
+      <td>提示信息</td>
+      <td>Y</td>
+      <td>不为空；返回的调用结果信息</td>
+   </tr>
+</table>
+
+####ProductSaleScheduleDTO####
+
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ProductId</td>
+      <td>int</td>
+      <td>商品Id</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ProductName</td>
+      <td>string</td>
+      <td>商品名称</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>GroupProductId</td>
+      <td>string</td>
+      <td>商户商品Id</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ItemSchedules</td>
+      <td>List< ItemSaleScheduleDTO ></td>
+      <td>套餐班期信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ItemSaleScheduleDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>Item</td>
+      <td>ProductItemBasicDTO</td>
+      <td>套餐信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>SaleSchedules</td>
+      <td>List< SaleScheduleDTO ></td>
+      <td>价格、库存</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ProductItemBasicDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ItemId</td>
+      <td>int</td>
+      <td>套餐ID</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ItemName</td>
+      <td>string</td>
+      <td>套餐名称</td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>AppItemId</td>
+      <td>string</td>
+      <td>关联商户套餐ID</td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>套餐有效性（1：是，0：否）</td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsDefault</td>
+      <td>bool</td>
+      <td>是否默认套餐（1：是，0：否）</td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsCalculateMinPrice</td>
+      <td>int?</td>
+      <td>是否是否计入商品起价 null，计入(默认)； 0，不计入; 1,计入</td>
+      <td></td>
+      <td></td>
+   </tr>
+</table>
+
+####SaleScheduleDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ScheduleDate</td>
+      <td>DateTime?</td>
+      <td>班期日期</td>
+      <td>Y</td>
+      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
+   </tr>
+   <tr>
+      <td>ScheduleStartDate</td>
+      <td>DateTime?</td>
+      <td>班期起始日期（与ScheduleDate互斥）</td>
+      <td>N</td>
+      <td>查询日期范围开始（与ScheduleDates互斥）</td>
+   </tr>
+   <tr>
+      <td>ScheduleEndDate</td>
+      <td>DateTime?</td>
+      <td>班期结束日期（与ScheduleDate互斥）</td>
+      <td>N</td>
+      <td>查询日期范围结束（与ScheduleDates互斥）</td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>0：无效、1：有效</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Prices</td>
+      <td>List< ProductPriceDTO ></td>
+      <td>价格信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Inventory</td>
+      <td>ProductInventoryDTO</td>
+      <td>库存信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ProductPriceDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>PriceModeId</td>
+      <td>int</td>
+      <td>价种</td>
+      <td>Y</td>
+      <td>1:成人价， 2：儿童价，3：单房差，4：单价</td>
+   </tr>
+   <tr>
+      <td>OriginalPrice</td>
+      <td>int</td>
+      <td>原价</td>
+      <td>Y</td>
+      <td>卖价不得高于原价</td>
+   </tr>
+   <tr>
+      <td>SalesPrice</td>
+      <td>int</td>
+      <td>卖价</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>价种有效性</td>
+      <td>Y</td>
+      <td>0：无效、1：有效</td>
+   </tr>
+</table>
+
+####ProductInventoryDTO
+
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>Total</td>
+      <td>int</td>
+      <td>总库存</td>
+      <td>N</td>
+      <td>可为空</td>
+   </tr>
+   <tr>
+      <td>Used</td>
+      <td>int</td>
+      <td>使用库存</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>InventoryMode</td>
+      <td>int</td>
+      <td>库存模式</td>
+      <td>Y</td>
+      <td>不为空（2：无限库存；4：库存不可超；）</td>
+   </tr>
+   <tr>
+      <td>InventoryType</td>
+      <td>int</td>
+      <td>库存类型</td>
+      <td>N</td>
+      <td>0：总库存、1：剩余库存</td>
+   </tr>
+</table>
+
+###7.5 获取商品库存、价格、班期
+
+- 更新库存 GetProductInventory
+- 更新班期 GetProductSchedule
+- 更新价格 GetProductPrice
+
+- 测试地址：http://180.168.78.10:9900/order/product.svc/API方法
+- 正式地址：http://api.117lego.com/order/product.svc/API方法
+- 调用方式: POST
+
+
+####请求消息####
+<table class="gridtable">
+   <tr>
+      <th>RequestData</th>
+      <td>GetSaleScheduleRequestDTO</td>
+   </tr>
+   <tr>
+      <th>Response</th>
+      <td>ResponseGetSaleScheduleDTO</td>
+   </tr>
+</table>
+
+
+####GetSaleScheduleRequestDTO
+
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>GroupId</td>
+      <td>string</td>
+      <td>商户ID</td>
+      <td>Y</td>
+      <td>商户ID，必填</td>
+   </tr>
+   <tr>
+      <td>ProductId</td>
+      <td>int</td>
+      <td>商品Id</td>
+      <td>Y</td>
+      <td>商品ID，必填</td>
+   </tr>
+   <tr>
+      <td>OperateType</td>
+      <td>string</td>
+      <td>操作类型</td>
+      <td>Y</td>
+      <td> CloseSchedule：关闭班期；OpenSchedule：打开班期)</td>
+   </tr>
+   <tr>
+      <td>ItemId</td>
+      <td>int</td>
+      <td>套餐ID</td>
+      <td>Y</td>
+      <td>必填</td>
+   </tr>
+   <tr>
+      <td>ScheduleDates</td>
+      <td>List< DateTime ></td>
+      <td>日期列表</td>
+      <td>N</td>
+      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
+   </tr>
+   <tr>
+      <td>StartDate</td>
+      <td>DateTime?</td>
+      <td>起始日期</td>
+      <td>N</td>
+      <td>查询日期范围开始（与ScheduleDates互斥）</td>
+   </tr>
+   <tr>
+      <td>EndDate</td>
+      <td>DateTime?</td>
+      <td>截止日期</td>
+      <td>N</td>
+      <td>查询日期范围结束（与ScheduleDates互斥）</td>
+   </tr>
+</table>
+
+
+####ResponseGetSaleScheduleDTO
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>Guid</td>
+      <td>string</td>
+      <td>唯一标识</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>SaleSchedule</td>
+      <td>ProductSaleScheduleDTO</td>
+      <td>商品班期信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>Code</td>
+      <td>int</td>
+      <td>编码</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+ <tr>
+      <td>IsSuccess</td>
+      <td>bool</td>
+      <td>是否成功</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+ <tr>
+      <td>Message</td>
+      <td>string</td>
+      <td>提示信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+
+####ProductSaleScheduleDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ProductId</td>
+      <td>int</td>
+      <td>商户Id</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ProductName</td>
+      <td>string</td>
+      <td>商品名称</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>GroupProductId</td>
+      <td>string</td>
+      <td>商户商品Id（商户商品名）</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ItemSchedules</td>
+      <td>List < ItemSaleScheduleDTO ></td>
+      <td>套餐班期信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ItemSaleScheduleDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>Item</td>
+      <td>ProductItemBasicDTO</td>
+      <td>套餐信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>SaleSchedules</td>
+      <td>List< SaleScheduleDTO ></td>
+      <td>价格、库存</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ProductItemBasicDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ItemId</td>
+      <td>int</td>
+      <td>套餐ID</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ItemName</td>
+      <td>string</td>
+      <td>套餐名称</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>AppItemId</td>
+      <td>string</td>
+      <td>关联商户套餐ID</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>套餐有效性（1：是，0：否）</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsDefault</td>
+      <td>bool</td>
+      <td>是否默认套餐（1：是，0：否）</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsCalculateMinPrice</td>
+      <td>int?</td>
+      <td>是否是否计入商品起价 null，计入(默认)； 0，不计入; 1,计入</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+</table>
+
+####SaleScheduleDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ScheduleDate</td>
+      <td>DateTime?</td>
+      <td>班期日期</td>
+      <td>Y</td>
+      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
+   </tr>
+   <tr>
+      <td>ScheduleStartDate</td>
+      <td>DateTime?</td>
+      <td>班期起始日期（与ScheduleDate互斥）</td>
+      <td>N</td>
+      <td>查询日期范围开始（与ScheduleDates互斥）</td>
+   </tr>
+   <tr>
+      <td>ScheduleEndDate</td>
+      <td>DateTime?</td>
+      <td>班期结束日期（与ScheduleDate互斥）</td>
+      <td>N</td>
+      <td>查询日期范围结束（与ScheduleDates互斥）</td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>0：无效、1：有效</td>
+      <td></td>
+      <td>可为空或忽略该字段</td>
+   </tr>
+   <tr>
+      <td>Prices</td>
+      <td>List< ProductPriceDTO ></td>
+      <td>价格信息</td>
+      <td></td>
+      <td>更新班期和价格的时候必需,更新库存的时候可忽略该字段</td>
+   </tr>
+   <tr>
+      <td>Inventory</td>
+      <td>ProductInventoryDTO</td>
+      <td>库存信息</td>
+      <td></td>
+      <td>更新班期和库存的时候必需,更新价格的时候可忽略该字段</td>
+   </tr>
+</table>
+
+####ProductPriceDTO####
+更新班期和价格时此实体信息必需
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>PriceModeId</td>
+      <td>int</td>
+      <td>价种</td>
+      <td>Y</td>
+      <td>1:成人价， 2：儿童价，3：单房差，4：单价</td>
+   </tr>
+   <tr>
+      <td>OriginalPrice</td>
+      <td>int</td>
+      <td>原价</td>
+      <td>Y</td>
+      <td>卖价不得高于原价</td>
+   </tr>
+   <tr>
+      <td>SalesPrice</td>
+      <td>int</td>
+      <td>卖价</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ProductInventoryDTO####
+更新班期和库存时此实体必填
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>Total</td>
+      <td>int</td>
+      <td>总库存</td>
+      <td>N</td>
+      <td>可为空</td>
+   </tr>
+   <tr>
+      <td>Used</td>
+      <td>int</td>
+      <td>使用库存</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>InventoryMode</td>
+      <td>int</td>
+      <td>库存模式</td>
+      <td>Y</td>
+      <td>不为空（2：无限库存；4：库存不可超；）</td>
+   </tr>
+   <tr>
+      <td>InventoryType</td>
+      <td>int</td>
+      <td>库存类型</td>
+      <td>N</td>
+      <td>0：总库存、1：剩余库存</td>
+   </tr>
+</table>
+
+
+###7.6 更新商品库存、价格、班期
+
+####API方法
+- 更新库存 UpdateProductInventory
+- 更新班期 UpdateProductSchedule
+- 更新价格 UpdateProductPrice
+
+- 测试地址：http://180.168.78.10:9900/order/product.svc/API方法
+- 正式地址：http://api.117lego.com/order/product.svc/API方法
+- 调用方式: POST
+
+####请求消息####
+<table class="gridtable">
+   <tr>
+      <th>RequestData</th>
+      <td>OperateSaleScheduleRequestDTO</td>
+   </tr>
+   <tr>
+      <th>Response</th>
+      <td>ResponseOperateProductSaleScheduleDTO</td>
+   </tr>
+</table>
+
+####OperateSaleScheduleRequestDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>GroupId</td>
+      <td>string</td>
+      <td>商户ID</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>OperateType</td>
+      <td>string</td>
+      <td>操作类型</td>
+      <td>Y</td>
+      <td>操作类型(Schedule:班期；Price：价格；Inventory：库存)</td>
+   </tr>
+   <tr>
+      <td>SaleSchedule</td>
+      <td>ProductSaleScheduleDTO</td>
+      <td>商品班期信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ProductSaleScheduleDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ProductId</td>
+      <td>int</td>
+      <td>商户Id</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ProductName</td>
+      <td>string</td>
+      <td>商品名称</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>GroupProductId</td>
+      <td>string</td>
+      <td>商户商品Id（商户商品名）</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ItemSchedules</td>
+      <td>List < ItemSaleScheduleDTO ></td>
+      <td>套餐班期信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ItemSaleScheduleDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>Item</td>
+      <td>ProductItemBasicDTO</td>
+      <td>套餐信息</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>SaleSchedules</td>
+      <td>List< SaleScheduleDTO ></td>
+      <td>价格、库存</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ProductItemBasicDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ItemId</td>
+      <td>int</td>
+      <td>套餐ID</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ItemName</td>
+      <td>string</td>
+      <td>套餐名称</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>AppItemId</td>
+      <td>string</td>
+      <td>关联商户套餐ID</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>套餐有效性（1：是，0：否）</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsDefault</td>
+      <td>bool</td>
+      <td>是否默认套餐（1：是，0：否）</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>IsCalculateMinPrice</td>
+      <td>int?</td>
+      <td>是否是否计入商品起价 null，计入(默认)； 0，不计入; 1,计入</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+</table>
+
+####SaleScheduleDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ScheduleDate</td>
+      <td>DateTime?</td>
+      <td>班期日期</td>
+      <td>Y</td>
+      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
+   </tr>
+   <tr>
+      <td>ScheduleStartDate</td>
+      <td>DateTime?</td>
+      <td>班期起始日期（与ScheduleDate互斥）</td>
+      <td>N</td>
+      <td>查询日期范围开始（与ScheduleDates互斥）</td>
+   </tr>
+   <tr>
+      <td>ScheduleEndDate</td>
+      <td>DateTime?</td>
+      <td>班期结束日期（与ScheduleDate互斥）</td>
+      <td>N</td>
+      <td>查询日期范围结束（与ScheduleDates互斥）</td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>0：无效、1：有效</td>
+      <td></td>
+      <td>可为空或忽略该字段</td>
+   </tr>
+   <tr>
+      <td>Prices</td>
+      <td>List< ProductPriceDTO ></td>
+      <td>价格信息</td>
+      <td></td>
+      <td>更新班期和价格的时候必需,更新库存的时候可忽略该字段</td>
+   </tr>
+   <tr>
+      <td>Inventory</td>
+      <td>ProductInventoryDTO</td>
+      <td>库存信息</td>
+      <td></td>
+      <td>更新班期和库存的时候必需,更新价格的时候可忽略该字段</td>
+   </tr>
+</table>
+
+####ProductPriceDTO####
+更新班期和价格时此实体信息必需
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>PriceModeId</td>
+      <td>int</td>
+      <td>价种</td>
+      <td>Y</td>
+      <td>1:成人价， 2：儿童价，3：单房差，4：单价</td>
+   </tr>
+   <tr>
+      <td>OriginalPrice</td>
+      <td>int</td>
+      <td>原价</td>
+      <td>Y</td>
+      <td>卖价不得高于原价</td>
+   </tr>
+   <tr>
+      <td>SalesPrice</td>
+      <td>int</td>
+      <td>卖价</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+####ProductInventoryDTO####
+更新班期和库存时此实体必填
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>Total</td>
+      <td>int</td>
+      <td>总库存</td>
+      <td>N</td>
+      <td>可为空</td>
+   </tr>
+   <tr>
+      <td>Used</td>
+      <td>int</td>
+      <td>使用库存</td>
+      <td>N</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>InventoryMode</td>
+      <td>int</td>
+      <td>库存模式</td>
+      <td>Y</td>
+      <td>不为空（2：无限库存；4：库存不可超；）</td>
+   </tr>
+   <tr>
+      <td>InventoryType</td>
+      <td>int</td>
+      <td>库存类型</td>
+      <td>N</td>
+      <td>0：总库存、1：剩余库存</td>
+   </tr>
+</table>
+
+####ResponseOperateProductSaleScheduleDTO####
+
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>IsSuccess</td>
+      <td>bool</td>
+      <td>是否成功</td>
+      <td>Y</td>
+      <td>不为空；提示调用返回是否成功</td>
+   </tr>
+   <tr>
+      <td>Code</td>
+      <td>int</td>
+      <td>编码</td>
+      <td>Y</td>
+      <td>发生错误时，不为空；返回的调用结果编码</td>
+   </tr>
+   <tr>
+      <td>Message</td>
+      <td>string</td>
+      <td>提示信息</td>
+      <td>Y</td>
+      <td>发生错误时，不为空；返回的调用结果信息</td>
+   </tr>
+   <tr>
+      <td>Guid</td>
+      <td>string</td>
+      <td>唯一标识</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+###7.7 关闭/打开班期###
+
+- 测试地址：http://180.168.78.10:9900/order/product.svc/OperateScheduleDate
+- 正式地址：http://api.117lego.com/order/product.svc/OperateScheduleDate
+- 调用方式: POST
+
+####请求消息####
+<table class="gridtable">
+   <tr>
+      <th>RequestData</th>
+      <td>GetSaleScheduleRequestDTO</td>
+   </tr>
+   <tr>
+      <th>Response</th>
+      <td>ResponseProductDTO</td>
+   </tr>
+</table>
+
+####GetSaleScheduleRequestDTO####
+
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>GroupId</td>
+      <td>string</td>
+      <td>商户ID</td>
+      <td>Y</td>
+      <td>商户ID，必填</td>
+   </tr>
+   <tr>
+      <td>ProductId</td>
+      <td>int</td>
+      <td>商品Id</td>
+      <td>Y</td>
+      <td>商品ID，必填</td>
+   </tr>
+   <tr>
+      <td>OperateType</td>
+      <td>string</td>
+      <td>操作类型</td>
+      <td>Y</td>
+      <td> CloseSchedule：关闭班期；OpenSchedule：打开班期)</td>
+   </tr>
+   <tr>
+      <td>ItemId</td>
+      <td>int</td>
+      <td>套餐ID</td>
+      <td>Y</td>
+      <td>必填</td>
+   </tr>
+   <tr>
+      <td>ScheduleDates</td>
+      <td>List< DateTime ></td>
+      <td>日期列表</td>
+      <td>N</td>
+      <td>要查询的具体日期列表（与起始日期， 截止日期互斥）</td>
+   </tr>
+   <tr>
+      <td>StartDate</td>
+      <td>DateTime?</td>
+      <td>起始日期</td>
+      <td>N</td>
+      <td>查询日期范围开始（与ScheduleDates互斥）</td>
+   </tr>
+   <tr>
+      <td>EndDate</td>
+      <td>DateTime?</td>
+      <td>截止日期</td>
+      <td>N</td>
+      <td>查询日期范围结束（与ScheduleDates互斥）</td>
+   </tr>
+</table>
+
+###7.8 操作套餐
+OperateProductItem是一个通用服务，既可以用来新增套餐又可以用来修改套餐。新增时ProductItemBasicDTO的ItemId(套餐Id)为空即可。同时针对新增还可以调用AddProductItem, 修改可以调用UpdateProductItem, 该三个服务的参数是一样的。
+
+- 测试地址：http://180.168.78.10:9900/product/product.svc/OperateProductItem
+- 正式地址：http://api.117lego.com/product/product.svc/OperateProductItem
+- 调用方式: POST
+
+####请求消息####
+<table class="gridtable">
+   <tr>
+      <th>RequestData</th>
+      <td>ProductItemRequestDTO</td>
+   </tr>
+   <tr>
+      <th>Response</th>
+      <td>ResponseProductDT</td>
+   </tr>
+</table>
+
+####ProductItemRequestDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>GroupId</td>
+      <td>string</td>
+      <td>商户ID</td>
+      <td>Y</td>
+      <td>商户ID，必填</td>
+   </tr>
+   <tr>
+      <td>ProductId</td>
+      <td>int</td>
+      <td>商品Id</td>
+      <td>Y</td>
+      <td>商品ID，必填</td>
+   </tr>
+   <tr>
+      <td>ItemList</td>
+      <td>List< ProductItemBasicDTO ></td>
+      <td>套餐信息</td>
+      <td>Y</td>
+      <td>套餐基本信息</td>
+   </tr>
+</table>
+
+####ProductItemBasicDTO####
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>ItemId</td>
+      <td>int</td>
+      <td>套餐Id</td>
+      <td>N</td>
+      <td>新增的时候为空，修改的时候必填</td>
+   </tr>
+   <tr>
+      <td>ItemName</td>
+      <td>string</td>
+      <td>套餐名称</td>
+      <td>Y</td>
+      <td>套餐名称</td>
+   </tr>
+   <tr>
+      <td>AppItemId</td>
+      <td>string</td>
+      <td>商户关联套餐Id</td>
+      <td>Y</td>
+      <td>商户关联套餐Id</td>
+   </tr>
+   <tr>
+      <td>State</td>
+      <td>int</td>
+      <td>状态</td>
+      <td>N</td>
+      <td>套餐有效性（1：是，0：否）</td>
+   </tr>
+   <tr>
+      <td>IsDefault</td>
+      <td>bool</td>
+      <td>是否默认套餐</td>
+      <td>N</td>
+      <td>是否默认套餐（1：是，0：否）</td>
+   </tr>
+   <tr>
+      <td>IsCalculateMinPrice</td>
+      <td>int?</td>
+      <td>是否计入商品起价</td>
+      <td>N</td>
+      <td> null，计入(默认)； 0，不计入; 1,计入</td>
+   </tr>
+</table>
+
+####ResponseProductDTO####
+
+<table class="gridtable">
+   <tr>
+      <th>属性名称</th>
+      <th>属性类型</th>
+      <th>属性描述</th>
+      <th>是否必填</th>
+      <th>属性备注</th>
+   </tr>
+   <tr>
+      <td>IsSuccess</td>
+      <td>bool</td>
+      <td>是否成功</td>
+      <td>Y</td>
+      <td>不为空；提示调用返回是否成功</td>
+   </tr>
+   <tr>
+      <td>Code</td>
+      <td>int</td>
+      <td>编码</td>
+      <td>Y</td>
+      <td>不为空；返回的调用结果编码</td>
+   </tr>
+   <tr>
+      <td>Message</td>
+      <td>string</td>
+      <td>提示信息</td>
+      <td>Y</td>
+      <td>不为空；返回的调用结果信息</td>
+   </tr>
+   <tr>
+      <td>Guid</td>
+      <td>string</td>
+      <td>唯一标识</td>
+      <td>Y</td>
+      <td></td>
+   </tr>
+</table>
+
+
+##八、系统级别错误代码##
+
+<table class="gridtable">
+   <tr>
+      <th>Code</th>
+      <th>Message</th>
+   </tr>
+   <tr>
+      <td>-1</td>
+      <td>系统意外错误</td>
+   </tr>
+   <tr>
+      <td>-2</td>
+      <td>AppId不能为空</td>
+   </tr>
+   <tr>
+      <td>-3</td>
+      <td>AppId必须是数字</td>
+   </tr>
+   <tr>
+      <td>-4</td>
+      <td>该请求已过时</td>
+   </tr>
+   <tr>
+      <td>-5</td>
+      <td>商户配置错误</td>
+   </tr>
+   <tr>
+      <td>-6</td>
+      <td>签名错误</td>
+   </tr>
+   <tr>
+      <td>-7</td>
+      <td>已经被列入黑名单</td>
+   </tr>
+   <tr>
+      <td>-8</td>
+      <td>输入参数为空</td>
+   </tr>
+ <tr>
+      <td>-14</td>
+      <td>当前商户没有使用当前模块权限</td>
+   </tr>
+ <tr>
+      <td>-110</td>
+      <td>商户号前后不统一</td>
+   </tr>
+</table>
+
 
 
 ##九、常见QA##
