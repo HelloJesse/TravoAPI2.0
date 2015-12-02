@@ -2933,7 +2933,7 @@ Response
 
 ##七、商品相关API接口详情##
 
-###7.1商品相关实体信息概览###
+###7.1 商品相关实体信息概览###
 与订单相比，商品没有复杂的流程。对于商品来说，比较重要的是各个实体之间的关系，与商品相关的接口分为以下5类
 
 - 基本信息
@@ -2942,10 +2942,42 @@ Response
 - 库存、价格、班期
 - 商品行程段
 
+
+####商品套餐实体信息####
+
+更新商品套餐的实体信息
+通过 操作套餐(OperateProductItem)接口即可以完成对商品套餐的新增和更新操作。
+
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/operateProductItem.png)
+
+####商品列表实体信息####
+
+获取商品列表接口(GetProductList) 返回的信息
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/GetProductList.png)
+
+
+####库存、价格、班期实体信息####
+下面的信息可以用于新增和更新商品库存、价格，以及班期信息。 对于库存以及价格信息只能获取或者更新。而班期信息可以新增，更新以及获取。
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/ProductSaleScheduleDTO.png)
+
+
+####查看行程段参数实体信息####
+获取行程段信息(GetProductSegmentList)返回的数据会比新增/更新的时候信息丰富一些。
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/getProductSegment.png)
+
+####操作行程段参数实体信息####
+下面的实体信息可以用于新增和更新商品行程段信息,可以通过接口操作商品行程段(OperateProductSegment)来完成
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/operateProductSegment.png)
+
 如果商户通过接口往淘在路上平台提交商品数据，需要先提交商品基本信息。参见接口![7.8操作商品基本信息](#78操作商品基本信息), 通过该接口可以创建新的商品，获取商品Id之后，可以在它的基础之上添加套餐、行程段以及库存，价格，班期等等数据。
 
 
-###7.2操作商品基本信息
+###7.2 操作商品基本信息
 操作基本信息接口涉及到的信息比较多，实体比较大。这个接口同时操作了不同品类的商品，而不同品类的商品在淘在路上所需要的信息有很大的差异，所以我们先看看那些必填的信息。
 
 ####请求消息####
@@ -4110,37 +4142,6 @@ Response
       <td>填写行程段ID SegmentId</td>
    </tr>
 </table>
-
-####商品套餐实体信息####
-
-更新商品套餐的实体信息
-通过 操作套餐(OperateProductItem)接口即可以完成对商品套餐的新增和更新操作。
-
-
-![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/operateProductItem.png)
-
-####商品列表实体信息####
-
-获取商品列表接口(GetProductList) 返回的信息
-
-![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/GetProductList.png)
-
-
-####库存、价格、班期实体信息####
-下面的信息可以用于新增和更新商品库存、价格，以及班期信息。 对于库存以及价格信息只能获取或者更新。而班期信息可以新增，更新以及获取。
-
-![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/ProductSaleScheduleDTO.png)
-
-
-####查看行程段参数实体信息####
-获取行程段信息(GetProductSegmentList)返回的数据会比新增/更新的时候信息丰富一些。
-
-![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/getProductSegment.png)
-
-####操作行程段参数实体信息####
-下面的实体信息可以用于新增和更新商品行程段信息,可以通过接口操作商品行程段(OperateProductSegment)来完成
-
-![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/operateProductSegment.png)
 
 
 ###7.3 获取商品列表###
