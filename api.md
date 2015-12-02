@@ -1,12 +1,11 @@
 此文档包括了淘在路上平台对接商品和订单接口参数和流程的详细定义，以及常见QA(见第九节)。
 
-在开始开发以前建议认真阅读常见QA!
-
-在开始开发以前建议认真阅读常见QA!
-
-在开始开发以前建议认真阅读常见QA!
+- 在开始开发以前建议认真阅读常见QA!
+- 在开始开发以前建议认真阅读常见QA!
+- 在开始开发以前建议认真阅读常见QA!
 
 ##目录
+
 
 - [一、系统级请求格式](#一系统级请求格式)
 - [　　1.1 服务请求地址](#11-服务请求地址)
@@ -15,6 +14,12 @@
 - [三、商品相关接口](#三商品相关接口)
 - [四、订单相关接口](#四订单相关接口)
 - [五、订单业务操作流程](#五订单业务操作流程)
+- [　　5.1 创建订单](#51-创建订单)
+- [　　5.2 订单付款与付款后取消申请](#52-订单付款与付款后取消申请)
+- [　　5.3 订单确认取消](#53-订单确认取消)
+- [　　5.4 订单核销](#54-订单核销)
+- [　　5.5 订单使用](#55-订单使用) 
+- [　　5.6 订单业务流程操作相关接口总览](#56-订单业务流程操作相关接口总览) 
 - [六、订单相关接口参数详解](#六订单相关接口参数详解)
 - [　　6.1 创建订单](#61-创建订单)
 - [　　6.2 付款取消申请](#62-付款取消申请)
@@ -327,7 +332,7 @@ Response
 
 
 ###5.5 订单使用
-在3.4 的订单核销接口中，订单需要先预约之后才能使用，而这个订单使用的接口则不需要预约即可以将订单的状态设置为已使用。
+在3.4 的订单核销接口中，订单需要先预约之后才能使用，而这个订单使用的接口则不需要预约即可以将订单的状态设置为已使用。**该接口需要看商户的商品的类型是否是属于可以不用预约直接使用的商品。**
 
 ![](https://github.com/HelloJesse/TravoAPI2.0/raw/master/images/useOrder.png)
 
@@ -965,7 +970,7 @@ Response
 
 ###6.3 确认取消订单###
 
-- 测试地址：http://10.1.25.61:9900/order/order.svc/UpdateAppOrder
+- 测试地址：http://180.168.78.10:9900/order/order.svc/UpdateAppOrder
 - 正式地址：http://api.117lego.com/order/order.svc/UpdateAppOrder
 - 调用方式: POST
 
@@ -1082,7 +1087,7 @@ Response
 
 ###6.4 核销订单###
 
-- 测试地址：http://10.1.25.61:9900/order/order.svc/UpdateAppOrder
+- 测试地址：http://180.168.78.10:9900/order/order.svc/UpdateAppOrder
 - 正式地址：http://api.117lego.com/order/order.svc/UpdateAppOrder
 - 调用方式: POST
 
@@ -1275,7 +1280,7 @@ Response
 
 ###6.5 使用订单###
 
-- 测试地址：http://10.1.25.61:9900/order/order.svc/UseAppOrder
+- 测试地址：http://180.168.78.10:9900/order/order.svc/UseAppOrder
 - 正式地址：http://api.117lego.com/order/order.svc/UseAppOrder
 - 调用方式: POST
 
@@ -1364,7 +1369,7 @@ Response
 
 ###6.6 获取商户待处理列表###
 
-- 测试地址：http://10.1.25.61:9900/order/order.svc/GetAppOrderList
+- 测试地址：http://180.168.78.10:9900/order/order.svc/GetAppOrderList
 - 正式地址：http://api.11
 - 7lego.com/order/order.svc/GetAppOrderList
 - 调用方式: POST
@@ -1866,7 +1871,7 @@ Response
 
 ###6.7 获取订单详情###
 
-- 测试地址：http://10.1.25.61:9900/order/order.svc/GetAppOrderDetail
+- 测试地址：http://180.168.78.10:9900/order/order.svc/GetAppOrderDetail
 - 正式地址：http://api.117lego.com/order/order.svc/GetAppOrderDetail
 - 调用方式: POST
 
@@ -2339,7 +2344,7 @@ Response
 
 ###6.8 修改订单信息###
 
-- 测试地址：http://10.1.25.61:9900/order/order.svc/UpdateOrderInfo
+- 测试地址：http://180.168.78.10:9900/order/order.svc/UpdateOrderInfo
 - 正式地址：http://api.117lego.com/order/order.svc/UpdateOrderInfo
 - 调用方式: POST
 
@@ -2606,7 +2611,7 @@ Response
 
 ###6.9 设置商户订单标记###
 
-- 测试地址：http://10.1.25.61:9900/order/order.svc/SetAppOrderColor
+- 测试地址：http://180.168.78.10:9900/order/order.svc/SetAppOrderColor
 - 正式地址：http://api.117lego.com/order/order.svc/SetAppOrderColor
 - 调用方式: POST
 
@@ -2774,7 +2779,7 @@ Response
 
 ###6.10 设置商户订单商户券###
 
-- 测试地址：http://10.1.25.61:9900/order/order.svc/SetAppOrderVoucher
+- 测试地址：http://180.168.78.10:9900/order/order.svc/SetAppOrderVoucher
 - 正式地址：http://api.117lego.com/order/order.svc/SetAppOrderVoucher
 - 调用方式: POST
 
@@ -3136,7 +3141,7 @@ Response
 - 获取班期 GetProductScheduleList
 - 获取价格 GetProductPrice
 
-- 测试地址：http://10.1.25.61:9900/order/product.svc/API方法
+- 测试地址：http://180.168.78.10:9900/order/product.svc/API方法
 - 正式地址：http://api.117lego.com/order/product.svc/API方法
 - 调用方式: POST
 
@@ -3518,7 +3523,7 @@ Response
 - 更新班期 GetProductSchedule
 - 更新价格 GetProductPrice
 
-- 测试地址：http://10.1.25.61:9900/order/product.svc/API方法
+- 测试地址：http://180.168.78.10:9900/order/product.svc/API方法
 - 正式地址：http://api.117lego.com/order/product.svc/API方法
 - 调用方式: POST
 
@@ -3896,7 +3901,7 @@ Response
 - 更新班期 UpdateProductSchedule
 - 更新价格 UpdateProductPrice
 
-- 测试地址：http://10.1.25.61:9900/order/product.svc/API方法
+- 测试地址：http://180.168.78.10:9900/order/product.svc/API方法
 - 正式地址：http://api.117lego.com/order/product.svc/API方法
 - 调用方式: POST
 
@@ -4229,7 +4234,7 @@ Response
 
 ###7.6 关闭/打开班期###
 
-- 测试地址：http://10.1.25.61:9900/order/product.svc/OperateScheduleDate
+- 测试地址：http://180.168.78.10:9900/order/product.svc/OperateScheduleDate
 - 正式地址：http://api.117lego.com/order/product.svc/OperateScheduleDate
 - 调用方式: POST
 
@@ -4306,10 +4311,10 @@ Response
    </tr>
 </table>
 
-###7.7 操作套餐###
+###7.7 操作套餐
 OperateProductItem是一个通用服务，既可以用来新增套餐又可以用来修改套餐。新增时ProductItemBasicDTO的ItemId(套餐Id)为空即可。同时针对新增还可以调用AddProductItem, 修改可以调用UpdateProductItem, 该三个服务的参数是一样的。
 
-- 测试地址：http://10.1.25.61:9900/product/product.svc/OperateProductItem
+- 测试地址：http://180.168.78.10:9900/product/product.svc/OperateProductItem
 - 正式地址：http://api.117lego.com/product/product.svc/OperateProductItem
 - 调用方式: POST
 
@@ -4449,6 +4454,24 @@ OperateProductItem是一个通用服务，既可以用来新增套餐又可以�
       <td></td>
    </tr>
 </table>
+
+###7.8操作商品基本信息
+操作基本信息接口涉及到的信息比较多，实体比较大。这个接口同时操作了不同品类的商品，而不同品类的商品在淘在路上所需要的信息有很大的差异，所以我们先看看那些必填的信息。
+
+####请求消息####
+<table class="gridtable">
+   <tr>
+      <th>RequestData</th>
+      <td>ProductInfoRequestDTO</td>
+   </tr>
+   <tr>
+      <th>Response</th>
+      <td>ResponseProductDT</td>
+   </tr>
+</table>
+
+![](https://raw.githubusercontent.com/HelloJesse/TravoAPI2.0/master/images/productInforequestDTO.png)
+
 
 ##八、系统级别错误代码##
 
