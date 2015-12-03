@@ -4242,6 +4242,20 @@ Response
       <td>Y</td>
       <td></td>
    </tr>
+  <tr>
+      <td>ProductTypeId</td>
+      <td>int</td>
+      <td>产品类型</td>
+      <td>Y</td>
+      <td>11:团队游,12:自由行,13:当地游,14:线路,16:机+酒,19:景点门票,20:酒店套餐,21:美食,22:交通接驳,23:出行必备,24:休闲娱乐,25:一日游,27:内容,30:点到点,31:签证,32:WIFI,33:其他服务,34:保险,36:体验,40:购物,41:交通卡,42:手机卡 </td>
+   </tr>
+<tr>
+      <td>State</td>
+      <td>int</td>
+      <td>产品状态</td>
+      <td>Y</td>
+      <td>-2：已删除；-1：已下线；0：初始值；4：已上线</td>
+   </tr>
    <tr>
       <td>ItemList</td>
       <td>List< ProductItemBasicDTO ></td>
