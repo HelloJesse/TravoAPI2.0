@@ -159,6 +159,12 @@ Response
       <td>产品列表</td>
       <td>查询</td>
    </tr>
+  <tr>
+      <td>OperateProductInfo</td>
+      <td>操作商品基本信息</td>
+      <td>(新增/修改)商品基本信息</td>
+      <td>更新</td>
+   </tr>
    <tr>
       <td>GetProductSegmentList</td>
       <td>商品行程段Schema列表</td>
@@ -2979,6 +2985,12 @@ Response
 ###7.2 操作商品基本信息
 操作基本信息接口涉及到的信息比较多，实体比较大。这个接口同时操作了不同品类的商品，而不同品类的商品在淘在路上所需要的信息有很大的差异，所以我们先看看那些必填的信息。
 
+API方法 : OperateProductInfo
+测试地址：http://180.168.78.10:9900/order/product.svc/OperateProductInfo
+正式地址：http://api.117lego.com/order/product.svc/OperateProductInfo
+调用方式: POST
+
+
 ####请求消息####
 <table class="gridtable">
    <tr>
@@ -4144,6 +4156,11 @@ Response
 
 
 ###7.3 获取商品列表###
+
+API方法 : GetProductList
+测试地址：http://180.168.78.10:9900/order/product.svc/GetProductList
+正式地址：http://api.117lego.com/order/product.svc/GetProductList
+调用方式: POST
 
 ####请求消息####
 <table class="gridtable">
