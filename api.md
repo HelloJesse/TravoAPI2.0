@@ -62,9 +62,9 @@
 
 前3个参数是为了完成验证和授权，商户开发人员在开始对接之前需要找淘在路上开发人员提供AppId 和 PrivateKey，有时候这两个值在正式环境与测试环境可能不同。关于Sign的获取方式可以参数附件提供的代码。
 
-RequestData是每个不同接口请求参数的Json字符串格式(注意它本身不是一个JSON对象，而是一个JSON对象的字符串)，下面我们拿商户取消订单这个接口来举个例子：
+RequestData是每个不同接口请求参数的Json字符串格式(注意它本身不是一个JSON对象，而是一个JSON对象的字符串)，下面我们拿 商户订单、券号状态回写更新订单 这个接口来举个例子：
 
-测试环境请求地址：http://180.168.78.10:9900/order/order.svc/CancelAppOrder
+测试环境请求地址：http://180.168.78.10:9900/order/order.svc/UpdateAppOrder
 
 Reqeust
 <pre>
@@ -1259,7 +1259,7 @@ Response
    <tr>
       <td>Code</td>
       <td>int</td>
-      <td>编码</td>
+      <td>编码，为1表示成功，0表示已经使用...</td>
       <td>Y</td>
       <td>不为空；返回的调用结果编码</td>
    </tr>
